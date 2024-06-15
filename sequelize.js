@@ -1,7 +1,5 @@
 import {Sequelize} from 'sequelize'
-import  config  from "dotenv"
 
-config();
 
 export default new Sequelize(
     process.env.DB_NAME, // база данных

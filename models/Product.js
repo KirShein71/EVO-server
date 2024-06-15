@@ -63,8 +63,8 @@ async getOne(id) {
 
 async create(data, img, patternImg) {
     // поскольку image не допускает null, задаем пустую строку
-    const image = FileService.save(img) ?? ''
-    const pattern_image = FileService.save(patternImg) ?? ''
+    const image = FileService.save(img) || ''
+    const pattern_image = FileService.save(patternImg) || ''
     const {name, old_price, new_price, brandId, carModelId} = data
     const product = await ProductMapping.create({ name, old_price, new_price, brandId, carModelId, image, pattern_image})
     

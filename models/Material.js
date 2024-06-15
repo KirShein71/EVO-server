@@ -39,7 +39,7 @@ async getOne(id) {
 }
 
 async create(data, img) {
-    const image = FileService.save(img) ?? ''
+    const image = FileService.save(img) || ''
     const {cellshapeId, color, name} = data
     const material = await MaterialMapping.create({image, color, name, cellshapeId})
     const created = await MaterialMapping.findByPk(material.id) 

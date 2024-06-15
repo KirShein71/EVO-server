@@ -23,7 +23,7 @@ async getOne(id) {
 }
 
 async create(data, img) {
-    const image = FileService.save(img) ?? ''
+    const image = FileService.save(img) || ''
     const { color, name}  = data
     const edging = await EdgingMapping.create({image, color, name})
     const created = await EdgingMapping.findByPk(edging.id) 

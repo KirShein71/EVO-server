@@ -23,7 +23,7 @@ async getOne(id) {
 
 async create(data, img) {
     // поскольку image не допускает null, задаем пустую строку
-    const image = FileService.save(img) ?? ''
+    const image = FileService.save(img) || ''
     const {name, old_price, new_price} = data
     const saddle = await SaddleMapping.create({name, image, old_price, new_price})
     const created = await SaddleMapping.findByPk(saddle.id) 

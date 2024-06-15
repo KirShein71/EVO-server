@@ -23,7 +23,7 @@ async getOne(id) {
 
 async create(data, img) {
     // поскольку image не допускает null, задаем пустую строку
-    const image = FileService.save(img) ?? ''
+    const image = FileService.save(img) || ''
     const {name} = data
     const brand = await BrandMapping.create({name, image})
     

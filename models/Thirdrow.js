@@ -33,7 +33,7 @@ async getAllProductId(productId) {
 }
 
 async create(data, img) {
-    const image = FileService.save(img) ?? ''
+    const image = FileService.save(img) || ''
     const {old_price, new_price, productId} = data
     const thirdrow = await ThirdrowMapping.create({ old_price, new_price, image, productId})
     const created = await ThirdrowMapping.findByPk(thirdrow.id) 

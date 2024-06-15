@@ -48,7 +48,7 @@ class OrganizerController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const organizer = await OrganizerModel.update(req.params.id, req.body, req.files?.image)
+            const organizer = await OrganizerModel.update(req.params.id, req.body, req.files.image)
             res.json(organizer)
         } catch(e) {
             next(AppError.badRequest(e.message))

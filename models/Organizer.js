@@ -23,7 +23,7 @@ async getOne(id) {
 
 async create(data, img) {
     // поскольку image не допускает null, задаем пустую строку
-    const image = FileService.save(img) ?? ''
+    const image = FileService.save(img) || ''
     const {size, old_price, new_price} = data
     const organizer = await OrganizerMapping.create({size, image, old_price, new_price})
     const created = await OrganizerMapping.findByPk(organizer.id) 

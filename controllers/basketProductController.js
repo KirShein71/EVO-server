@@ -64,21 +64,7 @@ class BasketProduct {
         }
     }
 
-    // async delete(req, res, next) {
-    //     await check(req, res, next) // проверяем существование корзины
-    //     try {
-    //         if (!req.params.id) {
-    //             throw new Error('Не указан id товара')
-    //         }
-    //         const item = await BasketProductModel.delete(
-    //             req.signedCookies.basketId,
-    //             req.params.id,
-    //         )
-    //         res.json(item)
-    //     } catch(e) {
-    //         next(AppError.badRequest(e.message))
-    //     }
-    // }
+
 
     async delete(req, res, next) {
         try {

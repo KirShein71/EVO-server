@@ -32,7 +32,7 @@ class HomeController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const home = await HomeModel.create(req.body, req.files?.image)
+            const home = await HomeModel.create(req.body, req.files.image)
             res.json(home)
         } catch(e) {
             next(AppError.badRequest(e.message))

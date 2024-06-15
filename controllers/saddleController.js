@@ -32,7 +32,7 @@ class SaddleController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const saddle = await SaddleModel.create(req.body, req.files?.image)
+            const saddle = await SaddleModel.create(req.body, req.files.image)
             res.json(saddle)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -48,7 +48,7 @@ class SaddleController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const saddle = await SaddleModel.update(req.params.id, req.body, req.files?.image)
+            const saddle = await SaddleModel.update(req.params.id, req.body, req.files.image)
             res.json(saddle)
         } catch(e) {
             next(AppError.badRequest(e.message))

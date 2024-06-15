@@ -59,7 +59,7 @@ class ProductController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const brand = await ProductModel.create(req.body, req.files?.image, req.files?.pattern_image)
+            const brand = await ProductModel.create(req.body, req.files.image, req.files.pattern_image)
             res.json(brand)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -90,7 +90,7 @@ class ProductController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const product = await ProductModel.update(req.params.id, req.body, req.files?.image, req.files?.pattern_image)
+            const product = await ProductModel.update(req.params.id, req.body, req.files.image, req.files.pattern_image)
             res.json(product)
         } catch(e) {
             next(AppError.badRequest(e.message))

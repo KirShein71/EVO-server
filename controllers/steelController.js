@@ -34,7 +34,7 @@ class SteelController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const steel = await SteelModel.update(req.params.id, req.body, req.files?.image)
+            const steel = await SteelModel.update(req.params.id, req.body, req.files.image)
             res.json(steel)
         } catch(e) {
             next(AppError.badRequest(e.message))

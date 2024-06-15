@@ -30,7 +30,7 @@ class BrandController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const brand = await BrandModel.create(req.body, req.files?.image)
+            const brand = await BrandModel.create(req.body, req.files.image)
             res.json(brand)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -45,7 +45,7 @@ class BrandController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const brand = await BrandModel.update(req.params.id, req.body, req.files?.image)
+            const brand = await BrandModel.update(req.params.id, req.body, req.files.image)
             res.json(brand)
         } catch(e) {
             next(AppError.badRequest(e.message))

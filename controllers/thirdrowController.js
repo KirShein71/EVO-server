@@ -40,7 +40,7 @@ class ThirdrowController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const thirdrow = await ThirdrowModel.create(req.body, req.files?.image,)
+            const thirdrow = await ThirdrowModel.create(req.body, req.files.image,)
             res.json(thirdrow)
         } catch(e) {
             next(AppError.badRequest(e.message))

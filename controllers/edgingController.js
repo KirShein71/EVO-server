@@ -32,7 +32,7 @@ class EdgingController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const edging = await EdgingModel.create(req.body, req.files?.image)
+            const edging = await EdgingModel.create(req.body, req.files.image)
             res.json(edging)
         } catch(e) {
             next(AppError.badRequest(e.message))

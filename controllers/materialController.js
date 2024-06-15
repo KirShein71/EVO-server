@@ -40,7 +40,7 @@ class MaterialController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const material = await MaterialModel.create(req.body, req.files?.image)
+            const material = await MaterialModel.create(req.body, req.files.image)
             res.json(material)
         } catch(e) {
             next(AppError.badRequest(e.message))

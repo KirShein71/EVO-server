@@ -1,4 +1,4 @@
-import 'dotenv/config.js';
+require('dotenv').config();
 
 import express from 'express'
 import sequelize from './sequelize.js'

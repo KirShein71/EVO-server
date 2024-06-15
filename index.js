@@ -1,4 +1,4 @@
-import dotenv from 'dotenv/config.js'
+import 'dotenv/config.js';
 
 import express from 'express'
 import sequelize from './sequelize.js'
@@ -9,7 +9,6 @@ import cookieParser from 'cookie-parser'
 import router from './routes/index.js'
 import bodyParser from 'body-parser'
 import errorMiddleware from './middleware/ErrorHandler.js'
-import axios from 'axios'
 
 
 

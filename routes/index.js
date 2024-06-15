@@ -16,7 +16,6 @@ import home from './home.js'
 import saddle from './saddle.js'
 import organizer from './organizer.js'
 import steel from './steel.js'
-import cdek from './cdek.js'
 import thirdrow from './thirdrow.js'
 
 
@@ -39,7 +38,6 @@ router.use('/home', home)
 router.use('/saddle', saddle)
 router.use('/organizer', organizer)
 router.use('/steel', steel)
-router.use('/cdek', cdek)
 router.use('/thirdrow', thirdrow)
 
 export default router

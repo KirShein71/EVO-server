@@ -11,7 +11,7 @@ import { Animal as AnimalMapping } from './mapping.js'
 import { Home as HomeMapping} from './mapping.js'
 import { Saddle as SaddleMapping } from './mapping.js'
 import { Steel as SteelMapping } from './mapping.js'
-import { Organizer as OrganizerMapping } from './mapping.js'
+
 
 
 class Order {
@@ -30,7 +30,7 @@ class Order {
                         {model: ThirdrowMapping},
                         {model: SaddleMapping, attributes: ['name']},
                         {model: SteelMapping, attributes: ['name']},
-                        {model: OrganizerMapping, attributes: ['size']}
+                  
                     ],
                     order: [
                         ['id', 'ASC'],
@@ -55,8 +55,8 @@ class Order {
             throw new Error('Товар не найден в БД');
         }
     
-        const { materialId, bodyId, edgingId, saddleId, organizerId, steelId, productId, trunkId, thirdrowId, quantity, quantity_trunk } = order;
-        return { materialId, bodyId, edgingId, saddleId, steelId, organizerId, productId, trunkId, thirdrowId, quantity, quantity_trunk };
+        const { materialId, bodyId, edgingId, saddleId, organizerId, organizerfiftyId, steelId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty } = order;
+        return { materialId, bodyId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty };
     }
 
    
@@ -91,8 +91,11 @@ class Order {
                 saddleId: item.saddleId,
                 steelId: item.steelId,
                 organizerId: item.organizerId,
+                organizerfiftyId: item.organizerfiftyId,
                 quantity: item.quantity,
-                quantity_trunk: item.quantity_trunk
+                quantity_trunk: item.quantity_trunk,
+                quantity_organizer: item.quantity_organizer,
+                quantity_organizerfifty: item.quantity_organizerfifty
             });
         }
         
@@ -131,8 +134,11 @@ class Order {
                 saddleId: item.saddleId,
                 steelId: item.steelId,
                 organizerId: item.organizerId,
+                organizerfiftyId: item.organizerfiftyId,
                 quantity: item.quantity,
-                quantity_trunk: item.quantity_trunk
+                quantity_trunk: item.quantity_trunk,
+                quantity_organizer: item.quantity_organizer,
+                quantity_organizerfifty: item.quantity_organizerfifty
             });
         }
         
@@ -167,13 +173,16 @@ class Order {
                 saddleId= order.saddleId,
                 steelId= order.steelId,
                 organizerId= order.organizerId,
+                organizerfiftyId= order.organizerfiftyId,
                 trunkId = order.trunkId,
                 thirdrowId = order.thirdrowId,
                 quantity_trunk = order.quantity_trunk,
                 quantity= order.quantity,
+                quantity_organizer = order.quantity_organizer,
+                quantity_organizerfifty = order.quantity_organizerfifty
               
         } = data
-        await order.update({materialId, bodyId, edgingId, saddleId, steelId, organizerId, trunkId, thirdrowId, quantity_trunk, quantity, })
+        await order.update({materialId, bodyId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity_trunk, quantity, quantity_organizer, quantity_organizerfifty })
         await order.reload()
         return order
     }

@@ -12,6 +12,7 @@ import { Home as HomeMapping} from './mapping.js'
 import { Saddle as SaddleMapping } from './mapping.js'
 import { Steel as SteelMapping} from './mapping.js'
 import { Organizer as OrganizerMapping } from './mapping.js'
+import { OrganizerFifty as OrganizerFiftyMapping } from './mapping.js'
 
 
 class BasketProduct {
@@ -36,7 +37,8 @@ class BasketProduct {
                 {model: HomeMapping, attributes: ['name', 'image', 'new_price']},
                 {model: SaddleMapping, attributes: ['name', 'new_price']},
                 {model: SteelMapping, attributes: ['name', 'new_price']},
-                {model: OrganizerMapping, attributes: ['size', 'new_price']}
+                {model: OrganizerMapping, attributes: ['size', 'new_price']},
+                {model: OrganizerFiftyMapping, attributes: ['size', 'new_price']}
                 
             ]
         });

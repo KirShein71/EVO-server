@@ -15,6 +15,7 @@ import animal from './animal.js'
 import home from './home.js'
 import saddle from './saddle.js'
 import organizer from './organizer.js'
+import organizerfifty from './organizerFifty.js'
 import steel from './steel.js'
 import thirdrow from './thirdrow.js'
 
@@ -37,6 +38,7 @@ router.use('/animal', animal)
 router.use('/home', home)
 router.use('/saddle', saddle)
 router.use('/organizer', organizer)
+router.use('/organizerfifty', organizerfifty)
 router.use('/steel', steel)
 router.use('/thirdrow', thirdrow)
 

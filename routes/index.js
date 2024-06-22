@@ -15,7 +15,7 @@ import animal from './animal.js'
 import home from './home.js'
 import saddle from './saddle.js'
 import organizer from './organizer.js'
-import organizerfifty from './organizerFifty.js'
+import organizerfifty from './organizerfifty.js'
 import steel from './steel.js'
 import thirdrow from './thirdrow.js'
 

@@ -3,7 +3,6 @@ import { OrderItem as OrderItemMapping } from './mapping.js'
 import { Product as ProductMapping} from './mapping.js'
 import { Material as MaterialMapping} from './mapping.js'
 import { CellShape as CellShapeMapping } from './mapping.js'
-import { Body as BodyMapping } from './mapping.js'
 import { Edging as EdgingMapping } from './mapping.js'
 import { Trunk as TrunkMapping} from './mapping.js'
 import { Thirdrow as ThirdrowMapping } from './mapping.js'
@@ -25,7 +24,6 @@ class Order {
                         { model: MaterialMapping, attributes: ['name'] },
                         { model: CellShapeMapping, attributes: ['name']},
                         { model: EdgingMapping, attributes: ['name']},
-                        {model: BodyMapping, attributes: ['name']},
                         {model: TrunkMapping, include: [{model: ProductMapping, attributes: ['name']}]},
                         {model: ThirdrowMapping},
                         {model: SaddleMapping, attributes: ['name']},
@@ -55,8 +53,8 @@ class Order {
             throw new Error('Товар не найден в БД');
         }
     
-        const { materialId, bodyId, edgingId, saddleId, organizerId, organizerfiftyId, steelId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty } = order;
-        return { materialId, bodyId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty };
+        const { materialId, edgingId, saddleId, organizerId, organizerfiftyId, steelId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty } = order;
+        return { materialId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty };
     }
 
    
@@ -83,7 +81,6 @@ class Order {
                 homeId: item.homeId,
                 orderId: order.id,
                 materialId: item.materialId,
-                bodyId: item.bodyId,
                 cellshapeId: item.cellshapeId,
                 edgingId: item.edgingId,
                 trunkId: item.trunkId,
@@ -126,7 +123,6 @@ class Order {
                 homeId: item.homeId,
                 orderId: order.id,
                 materialId: item.materialId,
-                bodyId: item.bodyId,
                 cellshapeId: item.cellshapeId,
                 edgingId: item.edgingId,
                 trunkId: item.trunkId,
@@ -168,7 +164,6 @@ class Order {
         }
         const {
                 materialId= order.materialId,
-                bodyId= order.bodyId,
                 edgingId= order.edgingId,
                 saddleId= order.saddleId,
                 steelId= order.steelId,
@@ -182,7 +177,7 @@ class Order {
                 quantity_organizerfifty = order.quantity_organizerfifty
               
         } = data
-        await order.update({materialId, bodyId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity_trunk, quantity, quantity_organizer, quantity_organizerfifty })
+        await order.update({materialId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity_trunk, quantity, quantity_organizer, quantity_organizerfifty })
         await order.reload()
         return order
     }

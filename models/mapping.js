@@ -103,10 +103,7 @@ const OrganizerFifty = sequelize.define('organizerfifty', {
     new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
 })
 
-const Body = sequelize.define('body', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type: DataTypes.STRING, allowNull: false },
-})
+
 
 const Basket = sequelize.define('basket', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -209,8 +206,6 @@ CellShape.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 Basket.belongsToMany(Edging, { through: BasketProduct, onDelete: 'CASCADE' })
 Edging.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
-Basket.belongsToMany(Body, { through: BasketProduct, onDelete: 'CASCADE' })
-Body.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
 Basket.belongsToMany(Saddle, { through: BasketProduct, onDelete: 'CASCADE' })
 Saddle.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
@@ -251,8 +246,6 @@ BasketProduct.belongsTo(CellShape)
 Edging.hasMany(BasketProduct)
 BasketProduct.belongsTo(Edging)
 
-Body.hasMany(BasketProduct)
-BasketProduct.belongsTo(Body)
 
 Saddle.hasMany(BasketProduct)
 BasketProduct.belongsTo(Saddle)
@@ -294,8 +287,6 @@ OrderItem.belongsTo(Edging)
 CellShape.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(CellShape)
 
-Body.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
-OrderItem.belongsTo(Body)
 
 Saddle.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(Saddle)
@@ -332,7 +323,6 @@ export {
     Material,
     Edging,
     CellShape,
-    Body,
     Saddle,
     Steel,
     Organizer,

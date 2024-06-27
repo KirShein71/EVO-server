@@ -5,7 +5,6 @@ import carmodel from './carmodel.js'
 import cellshape from './cellshape.js'
 import material from './material.js'
 import edging from './edging.js'
-import body from './body.js'
 import basket from './basket.js'
 import basketproduct from './basketproduct.js'
 import order from './order.js'
@@ -28,7 +27,6 @@ router.use('/carmodel', carmodel)
 router.use('/cellshape', cellshape)
 router.use('/material', material)
 router.use('/edging', edging)
-router.use('/body', body)
 router.use('/trunk', trunk)
 router.use('/basket', basket)
 router.use('/basketproduct', basketproduct)

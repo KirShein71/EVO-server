@@ -8,10 +8,11 @@ class Order {
 
     async create(req, res, next) {
         try {
-            const { name, phone, delivery, region, city, items } = req.body;
+            const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, items } = req.body;
             
             
             if (!name) throw new Error('Не указано имя покупателя');
+            if (!surname) throw new Error('Не указана фамалия покупателя');
             if (!phone) throw new Error('Не указан телефон покупателя');
             if (!items || Object.keys(items).length === 0) throw new Error('Отсутствуют данные о товарах');
             
@@ -20,7 +21,7 @@ class Order {
             // Очистить корзину перед созданием заказа
             await BasketModel.clear(parseInt(req.signedCookies.basketId));
             
-            const order = await OrderModel.create({ name, phone, delivery, region, city, items });
+            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, items });
             
             res.json(order);
         } catch(e) {
@@ -30,13 +31,14 @@ class Order {
 
     async createAdmin(req, res, next) {
         try {
-            const { name, phone, delivery, region, city, productId, materialId, edgingId, cellshapeId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty } = req.body;
-            const items = [{ productId, materialId, edgingId, cellshapeId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty}]
+            const { name, surname, phone, delivery, region, city, productId, materialId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty } = req.body;
+            const items = [{ productId, materialId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty}]
             if (!name) throw new Error('Не указано имя покупателя');
+            if (!surname) throw new Error('Не указана фамалия покупателя');
             if (!phone) throw new Error('Не указан телефон покупателя');
     
             // Создаем заказ в таблице OrderModel
-            const order = await OrderModel.create({ name, phone, delivery, region, city, items });
+            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, items });
     
     
             res.json(order);

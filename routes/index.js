@@ -17,6 +17,7 @@ import organizer from './organizer.js'
 import organizerfifty from './organizerfifty.js'
 import steel from './steel.js'
 import thirdrow from './thirdrow.js'
+import cdek from './cdek.js'
 
 
 const router = new express.Router()
@@ -39,5 +40,6 @@ router.use('/organizer', organizer)
 router.use('/organizerfifty', organizerfifty)
 router.use('/steel', steel)
 router.use('/thirdrow', thirdrow)
+router.use('/cdek', cdek)
 
 export default router

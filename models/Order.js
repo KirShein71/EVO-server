@@ -2,7 +2,6 @@ import {  Order as OrderMapping } from './mapping.js'
 import { OrderItem as OrderItemMapping } from './mapping.js'
 import { Product as ProductMapping} from './mapping.js'
 import { Material as MaterialMapping} from './mapping.js'
-import { CellShape as CellShapeMapping } from './mapping.js'
 import { Edging as EdgingMapping } from './mapping.js'
 import { Trunk as TrunkMapping} from './mapping.js'
 import { Thirdrow as ThirdrowMapping } from './mapping.js'
@@ -17,12 +16,11 @@ class Order {
     async getAll() {
         const orders = await OrderItemMapping.findAll({
                     include: [
-                        {model: OrderMapping, attributes: ['name', 'phone', 'status', 'id', 'delivery', 'region', 'city']},
+                        {model: OrderMapping, attributes: ['name', 'surname', 'phone', 'status', 'id', 'delivery', 'region', 'city', 'codepvz', 'totalamount', 'citycode', 'street', 'home', 'flat']},
                         { model: ProductMapping, attributes: ['name'] }, 
                         {model: AnimalMapping, attributes: ['name']},
                         {model: HomeMapping, attributes: ['name']},
                         { model: MaterialMapping, attributes: ['name'] },
-                        { model: CellShapeMapping, attributes: ['name']},
                         { model: EdgingMapping, attributes: ['name']},
                         {model: TrunkMapping, include: [{model: ProductMapping, attributes: ['name']}]},
                         {model: ThirdrowMapping},
@@ -43,8 +41,8 @@ class Order {
         if (!order) {
             throw new Error('Заказ не найден в БД')
         }
-        const { status, phone, city, region, delivery} = order
-        return { status, phone, city, region, delivery}
+        const { status, name, surname, phone, city, region, delivery, codepvz, totalamount, citycode, street, home, flat} = order
+        return { status, name, surname, phone, city, region, delivery, codepvz, totalamount, citycode, street, home, flat}
     }
 
     async getOneOrderItem(id) {
@@ -64,14 +62,21 @@ class Order {
             throw new Error('Data or items are missing');
         }
         const items = data.items;
-        const { name, phone, delivery, region, city, status = 'Новый' } = data;
+        const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, status = 'Новый' } = data;
         const order = await OrderMapping.create({
             name,
+            surname,
             phone,
             status,
             delivery,
             region,
-            city
+            city,
+            codepvz,
+            totalamount, 
+            citycode, 
+            street, 
+            home, 
+            flat
         });
     
         for (let item of items) {
@@ -81,7 +86,6 @@ class Order {
                 homeId: item.homeId,
                 orderId: order.id,
                 materialId: item.materialId,
-                cellshapeId: item.cellshapeId,
                 edgingId: item.edgingId,
                 trunkId: item.trunkId,
                 thirdrowId: item.thirdrowId,
@@ -106,9 +110,10 @@ class Order {
             throw new Error('Data or items are missing');
         }
         const items = data.items;
-        const { name, phone, delivery, region, city, status = 'Новый' } = data;
+        const { name, surname, phone, delivery, region, city, status = 'Новый' } = data;
         const order = await OrderMapping.create({
             name,
+            surname,
             phone,
             status,
             delivery,
@@ -123,7 +128,6 @@ class Order {
                 homeId: item.homeId,
                 orderId: order.id,
                 materialId: item.materialId,
-                cellshapeId: item.cellshapeId,
                 edgingId: item.edgingId,
                 trunkId: item.trunkId,
                 thirdrowId: item.thirdrowId,

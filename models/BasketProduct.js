@@ -2,7 +2,6 @@ import { BasketProduct as BasketProductMapping } from './mapping.js'
 import { Basket as BasketMapping } from './mapping.js'
 import { Product as ProductMapping} from './mapping.js'
 import { Material as MaterialMapping } from './mapping.js'
-import { CellShape as CellShapeMapping } from './mapping.js'
 import { Edging as EdgingMapping} from './mapping.js'
 import { Trunk as TrunkMapping } from './mapping.js'
 import { Thirdrow as ThirdrowMapping } from './mapping.js'
@@ -23,7 +22,6 @@ class BasketProduct {
             include: [
                 {model: ProductMapping, attributes: ['name', 'new_price']},
                 {model: MaterialMapping, attributes: ['name', 'image']},
-                {model: CellShapeMapping, attributes: ['name']},
                 {model: EdgingMapping, attributes: ['name', 'image']},
                 {model: TrunkMapping, attributes: ['new_price'],
                     include: [

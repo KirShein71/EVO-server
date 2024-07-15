@@ -40,7 +40,7 @@ class TrunkController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const trunk = await TrunkModel.create(req.body)
+            const trunk = await TrunkModel.create(req.body, req.files.image,)
             res.json(trunk)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -55,7 +55,7 @@ class TrunkController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const trunk = await TrunkModel.update(req.params.id, req.body)
+            const trunk = await TrunkModel.update(req.params.id, req.body, req.files.image,)
             res.json(trunk)
         } catch(e) {
             next(AppError.badRequest(e.message))

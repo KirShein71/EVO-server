@@ -1,5 +1,4 @@
 import { Material as MaterialMapping} from './mapping.js'; 
-import { CellShape as CellShapeMapping } from './mapping.js'
 import FileService from '../services/File.js'
 import {Op}  from 'sequelize'
 
@@ -9,10 +8,7 @@ class Material {
 
 async getAll() {
     const materials = await MaterialMapping.findAll({
-        include: [
-            { model: CellShapeMapping,
-            attributes: ['name']}
-        ],
+        
         order: [
             ['id', 'ASC'],
         ],
@@ -40,8 +36,8 @@ async getOne(id) {
 
 async create(data, img) {
     const image = FileService.save(img) || ''
-    const {cellshapeId, color, name} = data
-    const material = await MaterialMapping.create({image, color, name, cellshapeId})
+    const {color, name} = data
+    const material = await MaterialMapping.create({image, color, name})
     const created = await MaterialMapping.findByPk(material.id) 
     return created
 }

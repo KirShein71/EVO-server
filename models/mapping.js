@@ -44,6 +44,8 @@ const Trunk = sequelize.define('trunk', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     old_price: { type: DataTypes.INTEGER, unique: true, allowNull: true },
     new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+    name: {type: DataTypes.STRING, unique: true, allowNull: true },
+    image: { type: DataTypes.STRING, allowNull: false },
 })
 
 const Thirdrow = sequelize.define('thirdrow', {
@@ -125,11 +127,19 @@ const BasketProduct = sequelize.define('basket_product', {
 const Order = sequelize.define('order', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, allowNull: false },
+    surname: {type: DataTypes.STRING, allowNull: false},
     phone: { type: DataTypes.STRING, allowNull: false },
     status: { type: DataTypes.STRING, allowNull: true},
     delivery: { type: DataTypes.INTEGER, allowNull: false},
     region: { type: DataTypes.STRING, allowNull: true},
     city: { type: DataTypes.STRING, allowNull: true},
+    codepvz: {type: DataTypes.STRING, allowNull: true},
+    totalamount: {type: DataTypes.INTEGER, allowNull: true},
+    citycode: {type: DataTypes.INTEGER, allowNull: true},
+    street: {type: DataTypes.STRING, allowNull: true},
+    home: {type: DataTypes.STRING, allowNull: true},
+    flat: {type: DataTypes.STRING, allowNull: true},
+
     
     prettyCreatedAt: {
         type: DataTypes.VIRTUAL,
@@ -191,8 +201,7 @@ Trunk.belongsTo(Product)
 Product.hasMany(Thirdrow)
 Thirdrow.belongsTo(Product)
 
-CellShape.hasMany(Material)
-Material.belongsTo(CellShape)
+
 
 Basket.belongsToMany(Product, { through: BasketProduct, onDelete: 'CASCADE' })
 Product.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
@@ -200,8 +209,7 @@ Product.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 Basket.belongsToMany(Material, { through: BasketProduct, onDelete: 'CASCADE' })
 Material.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
-Basket.belongsToMany(CellShape, { through: BasketProduct, onDelete: 'CASCADE' })
-CellShape.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
+
 
 Basket.belongsToMany(Edging, { through: BasketProduct, onDelete: 'CASCADE' })
 Edging.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
@@ -239,9 +247,6 @@ BasketProduct.belongsTo(Product)
 
 Material.hasMany(BasketProduct)
 BasketProduct.belongsTo(Material)
-
-CellShape.hasMany(BasketProduct)
-BasketProduct.belongsTo(CellShape)
 
 Edging.hasMany(BasketProduct)
 BasketProduct.belongsTo(Edging)
@@ -283,9 +288,6 @@ OrderItem.belongsTo(Material)
 
 Edging.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(Edging)
-
-CellShape.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
-OrderItem.belongsTo(CellShape)
 
 
 Saddle.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})

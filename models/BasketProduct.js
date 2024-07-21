@@ -31,8 +31,8 @@ class BasketProduct {
                 {model: ThirdrowMapping, attributes: ['new_price']},
                 {model: AnimalMapping, attributes: ['name', 'image', 'new_price']},
                 {model: HomeMapping, attributes: ['name', 'image', 'new_price']},
-                {model: SaddleMapping, attributes: ['name', 'new_price']},
-                {model: SteelMapping, attributes: ['name', 'new_price']},
+                {model: SaddleMapping, attributes: ['name', 'new_price', 'image']},
+                {model: SteelMapping, attributes: ['name', 'new_price', 'image']},
                 {model: OrganizerMapping, attributes: ['size', 'new_price']},
                 {model: OrganizerFiftyMapping, attributes: ['size', 'new_price']}
                 
@@ -79,6 +79,84 @@ class BasketProduct {
         await basketproduct.destroy()
         return basketproduct
     }
+
+    async deleteTrunk(basketId, id) {
+        const basket = await BasketMapping.findByPk(basketId);
+        if (!basket) {
+            throw new Error('Корзина не найдена в БД');
+        }
+    
+        const basketProduct = await BasketProductMapping.findByPk(id, { where: { basketId } });
+    
+        if (!basketProduct) {
+            throw new Error('Строка не найдена в БД');
+        }
+    
+        if (basketProduct.productId === null) {
+            await basketProduct.destroy();
+            return null; // Возвращаем null, так как запись была удалена
+        } else {
+            await basketProduct.update({ trunkId: null });
+            return basketProduct;
+        }
+    }
+
+    async deleteOrganizer(basketId, id) {
+        const basket = await BasketMapping.findByPk(basketId)
+        if (!basket) {
+            throw new Error('Корзина не найдена в БД')
+        }
+        const basketproduct = await BasketProductMapping.findByPk(id, {where: {basketId}});
+        
+        if (!basketproduct) {
+            throw new Error('Строка не найдена в БД');
+        }
+        await basketproduct.update({ organizerId: null });
+        return basketproduct;
+    }
+
+    async deleteOrganizerFifty(basketId, id) {
+        const basket = await BasketMapping.findByPk(basketId)
+        if (!basket) {
+            throw new Error('Корзина не найдена в БД')
+        }
+        const basketproduct = await BasketProductMapping.findByPk(id, {where: {basketId}});
+        
+        if (!basketproduct) {
+            throw new Error('Строка не найдена в БД');
+        }
+        await basketproduct.update({ organizerfiftyId: null });
+        return basketproduct;
+    }
+
+    async deleteSteel(basketId, id) {
+        const basket = await BasketMapping.findByPk(basketId)
+        if (!basket) {
+            throw new Error('Корзина не найдена в БД')
+        }
+        const basketproduct = await BasketProductMapping.findByPk(id, {where: {basketId}});
+        
+        if (!basketproduct) {
+            throw new Error('Строка не найдена в БД');
+        }
+        await basketproduct.update({ steelId: null });
+        return basketproduct;
+    }
+
+    async deleteSaddle(basketId, id) {
+        const basket = await BasketMapping.findByPk(basketId)
+        if (!basket) {
+            throw new Error('Корзина не найдена в БД')
+        }
+        const basketproduct = await BasketProductMapping.findByPk(id, {where: {basketId}});
+        
+        if (!basketproduct) {
+            throw new Error('Строка не найдена в БД');
+        }
+        await basketproduct.update({ saddleId: null });
+        return basketproduct;
+    }
+
 }
 
 export default new BasketProduct()

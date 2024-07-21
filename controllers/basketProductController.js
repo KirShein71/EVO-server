@@ -80,6 +80,64 @@ class BasketProduct {
             next(AppError.badRequest(e.message))
         }
     }
+
+    async deleteTrunk(req, res, next) {
+        try {
+            const id = req.params.trunk_id;
+            
+            const basketproduct = await BasketProductModel.deleteTrunk(req.signedCookies.basketId, id);
+            res.json(basketproduct);
+        } catch(e) {
+            next(AppError.badRequest(e.message));
+        }
+    }
+
+    async deleteOrganizer(req, res, next) {
+        try {
+            const id = req.params.organizer_id;
+            
+            const basketproduct = await BasketProductModel.deleteOrganizer(req.signedCookies.basketId, id);
+            res.json(basketproduct);
+        } catch(e) {
+            next(AppError.badRequest(e.message));
+        }
+    }
+
+    async deleteOrganizerFifty(req, res, next) {
+        try {
+            const id = req.params.organizerfifty_id;
+            
+            const basketproduct = await BasketProductModel.deleteOrganizerFifty(req.signedCookies.basketId, id);
+            res.json(basketproduct);
+        } catch(e) {
+            next(AppError.badRequest(e.message));
+        }
+    }
+
+    async deleteSteel(req, res, next) {
+        try {
+            const id = req.params.steel_id;
+            
+            const basketproduct = await BasketProductModel.deleteSteel(req.signedCookies.basketId, id);
+            res.json(basketproduct);
+        } catch(e) {
+            next(AppError.badRequest(e.message));
+        }
+    }
+
+    async deleteSaddle(req, res, next) {
+        try {
+            const id = req.params.saddle_id;
+            
+            const basketproduct = await BasketProductModel.deleteSaddle(req.signedCookies.basketId, id);
+            res.json(basketproduct);
+        } catch(e) {
+            next(AppError.badRequest(e.message));
+        }
+    }
+
+    
+
 }
 
 export default new BasketProduct()

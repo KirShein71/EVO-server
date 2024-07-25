@@ -50,9 +50,9 @@ class Basket {
                 basketId = parseInt(req.signedCookies.basketId)
             }
             
-            const { animalId, materialId, edgingId, quantity} = req.body
+            const { animalId, materialId, quantity} = req.body
             console.log(animalId)
-            const basket = await BasketModel.appendAnimal(basketId, animalId, materialId, edgingId, quantity)
+            const basket = await BasketModel.appendAnimal(basketId, animalId, materialId, quantity)
             res.cookie('basketId', basket.id, {maxAge, signed})
             res.json(basket)
         } catch(e) {
@@ -72,8 +72,8 @@ class Basket {
                 basketId = parseInt(req.signedCookies.basketId)
             }
             
-            const { homeId, materialId, edgingId, quantity} = req.body
-            const basket = await BasketModel.appendHome(basketId, homeId, materialId, edgingId, quantity)
+            const { homeId, materialId, quantity} = req.body
+            const basket = await BasketModel.appendHome(basketId, homeId, materialId, quantity)
             res.cookie('basketId', basket.id, {maxAge, signed})
             res.json(basket)
         } catch(e) {

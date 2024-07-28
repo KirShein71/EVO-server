@@ -13,8 +13,12 @@ async getAll() {
     return brands
 }
 
-async getOne(id) {
-    const brand = await BrandMapping.findByPk(id)
+async getOne(name) {
+    const brand = await BrandMapping.findOne({
+        where: {
+            name: name,
+        }
+    })
     if (!brand) { 
         throw new Error('Товар не найден в БД')
     }

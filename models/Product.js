@@ -53,8 +53,12 @@ async deleteSaleProduct(id) {
     return product;
 }
 
-async getOne(id) {
-    const product = await ProductMapping.findByPk(id)
+async getOne(originalName) {
+    const product = await ProductMapping.findOne({
+        where: {
+            name: originalName
+        }
+    })
     if (!product) { 
         throw new Error('Товар не найден в БД')
     }

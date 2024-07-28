@@ -14,10 +14,10 @@ class BrandController {
 
     async getOne(req, res, next) {
         try {
-            if (!req.params.id) {
-                throw new Error('Не указан id товара')
+            if (!req.params.name) {
+                throw new Error('Не указано название бренда')
             }
-            const brand = await BrandModel.getOne(req.params.id)
+            const brand = await BrandModel.getOne(req.params.name)
             res.json(brand)
         } catch(e) {
             next(AppError.badRequest(e.message))

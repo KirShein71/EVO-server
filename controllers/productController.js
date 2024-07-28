@@ -43,10 +43,11 @@ class ProductController {
 
     async getOne(req, res, next) {
         try {
-            if (!req.params.id) {
+            if (!req.params.originalName) {
                 throw new Error('Не указан id товара')
             }
-            const product = await ProductModel.getOne(req.params.id)
+          console.log(req.params.originalName)
+            const product = await ProductModel.getOne(req.params.originalName)
             res.json(product)
         } catch(e) {
             next(AppError.badRequest(e.message))

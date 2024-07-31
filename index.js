@@ -1,4 +1,3 @@
-
 import express from 'express'
 import sequelize from './sequelize.js'
 import * as mapping from './models/mapping.js'
@@ -8,8 +7,6 @@ import cookieParser from 'cookie-parser'
 import router from './routes/index.js'
 import bodyParser from 'body-parser'
 import errorMiddleware from './middleware/ErrorHandler.js'
-
-
 
 const PORT = process.env.PORT || 5000
 

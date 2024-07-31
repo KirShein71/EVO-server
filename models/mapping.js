@@ -124,6 +124,10 @@ const BasketProduct = sequelize.define('basket_product', {
     thirdrowId: {type: DataTypes.INTEGER, allowNull: true}
 })
 
+const Favorite = sequelize.define('favorite', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+})
+
 const Order = sequelize.define('order', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, allowNull: false },
@@ -276,6 +280,12 @@ BasketProduct.belongsTo(Animal)
 Home.hasMany(BasketProduct)
 BasketProduct.belongsTo(Home)
 
+Basket.hasMany(Favorite)
+Favorite.belongsTo(Basket)
+
+Product.hasMany(Favorite)
+Favorite.belongsTo(Product)
+
 
 Order.hasMany(OrderItem, {  onDelete: 'CASCADE', hooks: true })
 OrderItem.belongsTo(Order)
@@ -335,5 +345,6 @@ export {
     OrderItem,
     Admin,
     Animal,
-    Home
+    Home,
+    Favorite
 }

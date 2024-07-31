@@ -1,3 +1,4 @@
+import {Favorite as FavoriteMapping} from './mapping.js'
 import { Basket as BasketMapping } from './mapping.js'
 import { BasketProduct as BasketProductMapping } from './mapping.js'
 
@@ -40,6 +41,12 @@ const pretty = (basket) => {
 
         async appendHome(basketId, homeId, materialId, quantity) {
             await BasketProductMapping.create({ basketId, homeId, materialId, quantity })
+            const basket = await BasketMapping.findByPk(basketId)
+            return pretty(basket)
+        }
+
+        async appendFavorite(basketId, productId) {
+            await FavoriteMapping.create({ basketId, productId })
             const basket = await BasketMapping.findByPk(basketId)
             return pretty(basket)
         }

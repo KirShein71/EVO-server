@@ -78,8 +78,27 @@ class Basket {
             res.json(basket)
         } catch(e) {
             next(AppError.badRequest(e.message))
-        }
-       
+        } 
+    }
+
+    async appendFavorite(req, res, next) {
+        try {
+            let basketId
+            if (!req.signedCookies.basketId) {
+                let created = await BasketModel.create({ userId: req.user.id }) // связываем корзину с пользователем
+                basketId = created.id   
+            } 
+            else {
+                basketId = parseInt(req.signedCookies.basketId)
+            }
+            
+            const { productId} = req.body
+            const basket = await BasketModel.appendFavorite(basketId, productId)
+            res.cookie('basketId', basket.id, {maxAge, signed})
+            res.json(basket)
+        } catch(e) {
+            next(AppError.badRequest(e.message))
+        } 
     }
 
     async clear(req, res, next) {

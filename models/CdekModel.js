@@ -99,9 +99,9 @@ class CdekModel  {
                 packages: [
                     {
                         height: 5,
-                        length: 80,
+                        length: 75,
                         weight: 2000,
-                        width: 50
+                        width: 40
                     }
                 ]
             };
@@ -137,9 +137,9 @@ class CdekModel  {
                 packages: [
                     {
                         height: 5,
-                        length: 80,
+                        length: 75,
                         weight: 2000,
-                        width: 50
+                        width: 40
                     }
                 ]
             };
@@ -159,8 +159,7 @@ class CdekModel  {
         }
     }
 
-    async createOrderCdek(accessToken, name, surname, phone, codepvz, totalamount, citycode) {
-        console.log(name, surname, phone, codepvz, totalamount, citycode)
+    async createOrderCdek(accessToken, id, name, surname, phone, codepvz, totalamount, citycode) {
         try {
             const tariffResponse = await axios.post('https://api.cdek.ru/v2/calculator/tariff', {
                 tariff_code: 136,
@@ -173,9 +172,9 @@ class CdekModel  {
                 packages: [
                   {
                     height: 5,
-                    length: 80,
+                    length: 75,
                     weight: 2000,
-                    width: 50
+                    width: 40
                   }
                 ]
               }, {
@@ -195,7 +194,7 @@ class CdekModel  {
                 shipment_point: 'SPB203',
                 delivery_point: codepvz,
                 packages : [ {
-                    number : "bar-001",
+                    number : id,
                     comment : "Упаковка",
                     items : [ {
                         ware_key : "00055",
@@ -209,9 +208,9 @@ class CdekModel  {
                         url : "www.savaks.ru"
                     } ],
                     height: 5,
-                    length: 80,
+                    length: 75,
                     weight: 2000,
-                    width: 50
+                    width: 40
                 } ],
                     recipient: {
                         name: `${name} ${surname}`,
@@ -238,7 +237,7 @@ class CdekModel  {
         }
     }
 
-    async createOrderCdekDelivery(accessToken, name, surname, phone, totalamount, citycode, street, home, flat) {
+    async createOrderCdekDelivery(accessToken, id, name, surname, phone, totalamount, citycode, street, home, flat) {
         try {
             // Получение данных о тарифах
             const tariffResponse = await axios.post('https://api.cdek.ru/v2/calculator/tariff', {
@@ -252,9 +251,9 @@ class CdekModel  {
               packages: [
                 {
                   height: 5,
-                  length: 80,
+                  length: 75,
                   weight: 2000,
-                  width: 50
+                  width: 40
                 }
               ]
             }, {
@@ -275,7 +274,7 @@ class CdekModel  {
               shipment_point: 'SPB203',
               packages: [
                 {
-                  number: "bar-001",
+                  number: id,
                   comment: "Упаковка",
                   items: [
                     {
@@ -291,9 +290,9 @@ class CdekModel  {
                     }
                   ],
                   height: 5,
-                  length: 80,
+                  length: 75,
                   weight: 2000,
-                  width: 50
+                  width: 40
                 }
               ],
               to_location: {

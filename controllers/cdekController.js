@@ -80,10 +80,10 @@ async getRatesDelivery(req, res) {
 
     async createOrderCdek(req, res) {
         const accessToken = await CdekModel.fetchAccessToken();
-        const {name, surname, phone, codepvz, totalamount, citycode} = req.body
+        const {id, name, surname, phone, codepvz, totalamount, citycode} = req.body
         if (accessToken) {
        
-        const order = await CdekModel.createOrderCdek(accessToken, name, surname, phone, codepvz, totalamount, citycode);
+        const order = await CdekModel.createOrderCdek(accessToken, id, name, surname, phone, codepvz, totalamount, citycode);
         res.json(order);
         } else {
         res.status(500).json({ error: 'Ошибка получения данных' });
@@ -92,10 +92,10 @@ async getRatesDelivery(req, res) {
 
     async createOrderCdekDelivery(req, res) {
         const accessToken = await CdekModel.fetchAccessToken();
-        const {name, surname, phone, totalamount, citycode, street, home, flat} = req.body
+        const {id, name, surname, phone, totalamount, citycode, street, home, flat} = req.body
         if (accessToken) {
        
-        const order = await CdekModel.createOrderCdekDelivery(accessToken, name, surname, phone, totalamount,citycode, street, home, flat);
+        const order = await CdekModel.createOrderCdekDelivery(accessToken, id, name, surname, phone, totalamount,citycode, street, home, flat);
         res.json(order);
         } else {
         res.status(500).json({ error: 'Ошибка получения данных' });

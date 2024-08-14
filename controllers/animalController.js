@@ -32,7 +32,7 @@ class AnimalController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const animal = await AnimalModel.create(req.body, req.files.image)
+            const animal = await AnimalModel.create(req.body)
             res.json(animal)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -48,7 +48,7 @@ class AnimalController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const animal = await AnimalModel.update(req.params.id, req.body, req.files.image)
+            const animal = await AnimalModel.update(req.params.id, req.body)
             res.json(animal)
         } catch(e) {
             next(AppError.badRequest(e.message))

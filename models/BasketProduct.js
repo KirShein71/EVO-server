@@ -12,6 +12,7 @@ import { Steel as SteelMapping} from './mapping.js'
 import { Organizer as OrganizerMapping } from './mapping.js'
 import { OrganizerFifty as OrganizerFiftyMapping } from './mapping.js'
 import { HomeImage as HomeImageMapping} from './mapping.js'
+import { AnimalImage as AnimalImageMapping } from './mapping.js'
 
 
 class BasketProduct {
@@ -30,7 +31,11 @@ class BasketProduct {
                     ]
                 },
                 {model: ThirdrowMapping, attributes: ['new_price']},
-                {model: AnimalMapping, attributes: ['name', 'image', 'new_price']},
+                {model: AnimalMapping, attributes: ['name', 'image', 'new_price'],
+                    inclide: [
+                        {model: AnimalImageMapping, attributes: ['image', 'materialId']}
+                    ]
+                },
                 {model: HomeMapping, attributes: ['name', 'new_price'], 
                     include: [
                         {model: HomeImageMapping, attributes: ['image', 'materialId']}

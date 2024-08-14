@@ -29,6 +29,10 @@ const Animal = sequelize.define('animal', {
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
     old_price: { type: DataTypes.INTEGER, unique: true, allowNull: true },
     new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+})
+
+const AnimalImage = sequelize.define('animal_image', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     image: { type: DataTypes.STRING, allowNull: false },
 })
 
@@ -279,6 +283,12 @@ BasketProduct.belongsTo(Thirdrow)
 Animal.hasMany(BasketProduct)
 BasketProduct.belongsTo(Animal)
 
+Animal.hasMany(AnimalImage, {onDelete: 'CASCADE', hooks: true})
+AnimalImage.belongsTo(Animal)
+
+Material.hasMany(AnimalImage)
+AnimalImage.belongsTo(Material)
+
 Home.hasMany(BasketProduct)
 BasketProduct.belongsTo(Home)
 
@@ -353,6 +363,7 @@ export {
     OrderItem,
     Admin,
     Animal,
+    AnimalImage,
     Home,
     HomeImage,
     Favorite

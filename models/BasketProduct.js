@@ -31,7 +31,7 @@ class BasketProduct {
                     ]
                 },
                 {model: ThirdrowMapping, attributes: ['new_price']},
-                {model: AnimalMapping, attributes: ['name', 'image', 'new_price'],
+                {model: AnimalMapping, attributes: ['name',  'new_price'],
                     inclide: [
                         {model: AnimalImageMapping, attributes: ['image', 'materialId']}
                     ]

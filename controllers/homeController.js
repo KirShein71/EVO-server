@@ -32,7 +32,7 @@ class HomeController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const home = await HomeModel.create(req.body, req.files.image)
+            const home = await HomeModel.create(req.body)
             res.json(home)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -48,7 +48,7 @@ class HomeController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const home = await HomeModel.update(req.params.id, req.body, req.files.image)
+            const home = await HomeModel.update(req.params.id, req.body)
             res.json(home)
         } catch(e) {
             next(AppError.badRequest(e.message))

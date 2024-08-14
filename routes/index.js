@@ -19,6 +19,7 @@ import steel from './steel.js'
 import thirdrow from './thirdrow.js'
 import cdek from './cdek.js'
 import favorite from './favorite.js'
+import homeimage from './homeimage.js'
 
 
 const router = new express.Router()
@@ -43,5 +44,6 @@ router.use('/steel', steel)
 router.use('/thirdrow', thirdrow)
 router.use('/cdek', cdek)
 router.use('/favorite', favorite)
+router.use('/homeimage', homeimage)
 
 export default router

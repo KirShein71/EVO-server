@@ -12,6 +12,7 @@ import { Steel as SteelMapping } from './mapping.js'
 
 
 
+
 class Order {
     async getAll() {
         const orders = await OrderItemMapping.findAll({
@@ -19,7 +20,7 @@ class Order {
                         {model: OrderMapping, attributes: ['name', 'surname', 'phone', 'status', 'id', 'delivery', 'region', 'city', 'codepvz', 'totalamount', 'citycode', 'street', 'home', 'flat']},
                         { model: ProductMapping, attributes: ['name'] }, 
                         {model: AnimalMapping, attributes: ['name']},
-                        {model: HomeMapping, attributes: ['name']},
+                        {model: HomeMapping, attributes: ['name'], },
                         { model: MaterialMapping, attributes: ['name'] },
                         { model: EdgingMapping, attributes: ['name']},
                         {model: TrunkMapping, include: [{model: ProductMapping, attributes: ['name']}]},

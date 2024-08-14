@@ -37,6 +37,10 @@ const Home = sequelize.define('home', {
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
     old_price: { type: DataTypes.INTEGER, unique: true, allowNull: true },
     new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+})
+
+const HomeImage = sequelize.define('home_image', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     image: { type: DataTypes.STRING, allowNull: false },
 })
 
@@ -213,8 +217,6 @@ Product.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 Basket.belongsToMany(Material, { through: BasketProduct, onDelete: 'CASCADE' })
 Material.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
-
-
 Basket.belongsToMany(Edging, { through: BasketProduct, onDelete: 'CASCADE' })
 Edging.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
@@ -279,6 +281,12 @@ BasketProduct.belongsTo(Animal)
 
 Home.hasMany(BasketProduct)
 BasketProduct.belongsTo(Home)
+
+Home.hasMany(HomeImage, {onDelete: 'CASCADE', hooks: true})
+HomeImage.belongsTo(Home)
+
+Material.hasMany(HomeImage)
+HomeImage.belongsTo(Material)
 
 Basket.hasMany(Favorite)
 Favorite.belongsTo(Basket)
@@ -346,5 +354,6 @@ export {
     Admin,
     Animal,
     Home,
+    HomeImage,
     Favorite
 }

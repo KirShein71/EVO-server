@@ -54,6 +54,7 @@ async deleteSaleProduct(id) {
 }
 
 async getOne(originalName) {
+    console.log(originalName)
     const product = await ProductMapping.findOne({
         where: {
             name: originalName
@@ -130,6 +131,19 @@ async updatePrice(id, data) {
         new_price = product.new_price,
     } = data
     await product.update({ old_price, new_price})
+    await product.reload()
+    return product
+}
+
+async updateName(id, data) {
+    const product = await ProductMapping.findByPk(id)
+    if (!product) {
+        throw new Error('Товар не найден в БД')
+    }
+    const {
+       name = product.name
+    } = data
+    await product.update({ name })
     await product.reload()
     return product
 }

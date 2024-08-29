@@ -1,6 +1,7 @@
-import {Product as ProductMapping} from './mapping.js'; 
+import { Product as ProductMapping} from './mapping.js'; 
 import { Trunk as TrunkMapping} from './mapping.js'
 import { Thirdrow as ThirdrowMapping } from './mapping.js';
+import { Brand as BrandMapping} from './mapping.js'
 import FileService from '../services/File.js'
 
 
@@ -13,7 +14,7 @@ async getAll() {
             attributes: ['id']},
             {model: ThirdrowMapping,
                 attributes: ['id']
-            }
+            },
         ],
         order: [
             ['name', 'ASC'],
@@ -54,11 +55,15 @@ async deleteSaleProduct(id) {
 }
 
 async getOne(originalName) {
-    console.log(originalName)
     const product = await ProductMapping.findOne({
         where: {
             name: originalName
-        }
+        },
+        include: [
+            {model: BrandMapping,
+                attributes: ['name']
+            }
+        ] 
     })
     if (!product) { 
         throw new Error('Товар не найден в БД')

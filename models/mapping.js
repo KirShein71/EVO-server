@@ -198,6 +198,9 @@ const Admin = sequelize.define('admin', {
 
 
 
+
+
+
 Brand.hasMany(Product)
 Product.belongsTo(Brand)
 
@@ -366,5 +369,6 @@ export {
     AnimalImage,
     Home,
     HomeImage,
-    Favorite
+    Favorite,
+ 
 }

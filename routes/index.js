@@ -23,6 +23,7 @@ import homeimage from './homeimage.js'
 import animalimage from './animalimage.js'
 
 
+
 const router = new express.Router()
 
 router.use('/brand', brand)
@@ -47,5 +48,6 @@ router.use('/cdek', cdek)
 router.use('/favorite', favorite)
 router.use('/homeimage', homeimage)
 router.use('/animalimage', animalimage)
+
 
 export default router

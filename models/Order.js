@@ -9,6 +9,7 @@ import { Animal as AnimalMapping } from './mapping.js'
 import { Home as HomeMapping} from './mapping.js'
 import { Saddle as SaddleMapping } from './mapping.js'
 import { Steel as SteelMapping } from './mapping.js'
+import { Bag as BagMapping} from './mapping.js'
 
 
 
@@ -27,6 +28,7 @@ class Order {
                         {model: ThirdrowMapping},
                         {model: SaddleMapping, attributes: ['name']},
                         {model: SteelMapping, attributes: ['name']},
+                        {model: BagMapping, attributes: ['name']}
                   
                     ],
                     order: [
@@ -52,8 +54,8 @@ class Order {
             throw new Error('Товар не найден в БД');
         }
     
-        const { materialId, edgingId, saddleId, organizerId, organizerfiftyId, steelId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty } = order;
-        return { materialId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty };
+        const { materialId, edgingId, saddleId, organizerId, organizerfiftyId, steelId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty } = order;
+        return { materialId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, productId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty };
     }
 
    
@@ -97,7 +99,13 @@ class Order {
                 quantity: item.quantity,
                 quantity_trunk: item.quantity_trunk,
                 quantity_organizer: item.quantity_organizer,
-                quantity_organizerfifty: item.quantity_organizerfifty
+                quantity_organizerfifty: item.quantity_organizerfifty,
+                bagId: item.bagId,
+                bagmaterialId: item.bagmaterialId,
+                bagfourtyId: item.bagfourtyId,
+                bagfiftyId: item.bagfiftyId,
+                quantity_bagfourty: item.quantity_bagfourty,
+                quantity_bagfifty: item.quantity_bagfifty
             });
         }
         

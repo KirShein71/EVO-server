@@ -21,6 +21,8 @@ import cdek from './cdek.js'
 import favorite from './favorite.js'
 import homeimage from './homeimage.js'
 import animalimage from './animalimage.js'
+import bag from './bag.js'
+import bagimage from './bagimage.js'
 
 
 
@@ -48,6 +50,8 @@ router.use('/cdek', cdek)
 router.use('/favorite', favorite)
 router.use('/homeimage', homeimage)
 router.use('/animalimage', animalimage)
+router.use('/bag', bag)
+router.use('/bagimage', bagimage)
 
 
 export default router

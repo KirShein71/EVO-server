@@ -8,6 +8,7 @@ router.get('/getone', BasketController.getOne)
 router.post('/append', BasketController.append)
 router.post('/appendAnimal', BasketController.appendAnimal)
 router.post('/appendHome', BasketController.appendHome)
+router.post('/appendBag', BasketController.appendBag)
 router.post('/appendFavorite', BasketController.appendFavorite)
 router.get('/getall', BasketProductController.getAll)
 

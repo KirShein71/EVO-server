@@ -12,6 +12,8 @@ router.delete('/deleteOrganizer/:organizer_id', BasketProductController.deleteOr
 router.delete('/deleteOrganizerFifty/:organizerfifty_id', BasketProductController.deleteOrganizerFifty)
 router.delete('/deleteSteel/:steel_id', BasketProductController.deleteSteel)
 router.delete('/deleteSaddle/:saddle_id', BasketProductController.deleteSaddle)
+router.delete('/deleteBagFourty/:bagfourty_id', BasketProductController.deleteBagFourty)
+router.delete('/deleteBagFifty/:bagfifty_id', BasketProductController.deleteBagFifty)
 
 
 export default router

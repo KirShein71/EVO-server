@@ -46,7 +46,6 @@ class ProductController {
             if (!req.params.originalName) {
                 throw new Error('Не указан id товара')
             }
-          console.log(req.params.originalName)
             const product = await ProductModel.getOne(req.params.originalName)
             res.json(product)
         } catch(e) {

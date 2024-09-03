@@ -81,6 +81,27 @@ class Basket {
         } 
     }
 
+    async appendBag(req, res, next) {
+        try {
+            let basketId
+            if (!req.signedCookies.basketId) {
+                let created = await BasketModel.create({ userId: req.user.id }) // связываем корзину с пользователем
+                basketId = created.id   
+            } 
+            else {
+                basketId = parseInt(req.signedCookies.basketId)
+            }
+            
+            const { bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty} = req.body
+         
+            const basket = await BasketModel.appendBag(basketId, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty)
+            res.cookie('basketId', basket.id, {maxAge, signed})
+            res.json(basket)
+        } catch(e) {
+            next(AppError.badRequest(e.message))
+        } 
+    }
+
     async appendFavorite(req, res, next) {
         try {
             let basketId

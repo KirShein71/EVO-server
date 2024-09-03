@@ -13,7 +13,11 @@ import { Organizer as OrganizerMapping } from './mapping.js'
 import { OrganizerFifty as OrganizerFiftyMapping } from './mapping.js'
 import { HomeImage as HomeImageMapping} from './mapping.js'
 import { AnimalImage as AnimalImageMapping } from './mapping.js'
-
+import {Bag as BagMapping} from './mapping.js'
+import {BagImage as BagImageMapping} from './mapping.js'
+import { BagFourty as BagFourtyMapping } from './mapping.js'
+import { BagFifty as BagFiftyMapping } from './mapping.js'
+import { BagMaterial as BagMaterialMapping } from './mapping.js'
 
 class BasketProduct {
     async getAll(basketId) {
@@ -44,8 +48,16 @@ class BasketProduct {
                 {model: SaddleMapping, attributes: ['name', 'new_price', 'image']},
                 {model: SteelMapping, attributes: ['name', 'new_price', 'image']},
                 {model: OrganizerMapping, attributes: ['size', 'new_price']},
-                {model: OrganizerFiftyMapping, attributes: ['size', 'new_price']}
-                
+                {model: OrganizerFiftyMapping, attributes: ['size', 'new_price']},
+                {model: BagMapping, attributes: ['name'],
+                    include: [
+                        {model: BagImageMapping, attributes: ['image', 'bagmaterialId']}
+                    ]
+                },
+                {model: BagMaterialMapping, attributes: ['name']},
+                {model: BagFourtyMapping, attributes: ['size', 'price']},
+                {model: BagFiftyMapping, attributes: ['size', 'price']},
+                 
             ]
         });
         return basketproduct;
@@ -165,6 +177,45 @@ class BasketProduct {
         }
         await basketproduct.update({ saddleId: null });
         return basketproduct;
+    }
+
+    async deleteBagFourty(basketId, id) {
+        const basket = await BasketMapping.findByPk(basketId)
+        if (!basket) {
+            throw new Error('Корзина не найдена в БД')
+        }
+        const basketproduct = await BasketProductMapping.findByPk(id, {where: {basketId}});
+        
+        if (!basketproduct) {
+            throw new Error('Строка не найдена в БД');
+        }
+
+        if (basketproduct.bagfiftyId === null) {
+            await basketproduct.destroy();
+            return basketproduct;
+        } else {
+            await basketproduct.update({ bagfourtyId: null });
+            return basketproduct;
+        }
+    }
+
+    async deleteBagFifty(basketId, id) {
+        const basket = await BasketMapping.findByPk(basketId)
+        if (!basket) {
+            throw new Error('Корзина не найдена в БД')
+        }
+        const basketproduct = await BasketProductMapping.findByPk(id, {where: {basketId}});
+        
+        if (!basketproduct) {
+            throw new Error('Строка не найдена в БД');
+        }
+        if (basketproduct.bagfourtyId === null) {
+            await basketproduct.destroy();
+            return basketproduct;
+        } else {
+            await basketproduct.update({ bagfiftyId: null });
+            return basketproduct;
+        }
     }
 
 }

@@ -48,6 +48,35 @@ const HomeImage = sequelize.define('home_image', {
     image: { type: DataTypes.STRING, allowNull: false },
 })
 
+const Bag = sequelize.define('bag', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, unique: true, allowNull: false },
+    new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+})
+
+const BagImage = sequelize.define('bag_image', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    image: { type: DataTypes.STRING, allowNull: false },
+})
+
+const BagFourty = sequelize.define('bagfourty', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    size: { type: DataTypes.STRING, allowNull: false },
+    price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+})
+
+const BagFifty = sequelize.define('bagfifty', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    size: { type: DataTypes.STRING, allowNull: false },
+    price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+})
+
+const BagMaterial = sequelize.define('bagmaterial', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    color: { type: DataTypes.STRING, allowNull: false },
+    name: { type: DataTypes.STRING, allowNull: false },
+})
+
 const Trunk = sequelize.define('trunk', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     old_price: { type: DataTypes.INTEGER, unique: true, allowNull: true },
@@ -129,7 +158,10 @@ const BasketProduct = sequelize.define('basket_product', {
     animalId: {type: DataTypes.INTEGER, allowNull: true},
     homeId: {type: DataTypes.INTEGER, allowNull: true},
     saddleId: {type: DataTypes.INTEGER, allowNull: true},
-    thirdrowId: {type: DataTypes.INTEGER, allowNull: true}
+    thirdrowId: {type: DataTypes.INTEGER, allowNull: true},
+
+    quantity_bagfourty: { type: DataTypes.INTEGER, allowNull: true },
+    quantity_bagfifty: { type: DataTypes.INTEGER, allowNull: true },
 })
 
 const Favorite = sequelize.define('favorite', {
@@ -185,6 +217,8 @@ const OrderItem = sequelize.define('order_item', {
     quantity_trunk: { type: DataTypes.INTEGER, allowNull: true },
     quantity_organizer: { type: DataTypes.INTEGER, allowNull: true  },
     quantity_organizerfifty: { type: DataTypes.INTEGER, allowNull: true },
+    quantity_bagfourty: {type: DataTypes.INTEGER, allowNull: true },
+    quantity_bagfifty: {type: DataTypes.INTEGER, allowNull: true }
 
 
 })
@@ -252,6 +286,18 @@ Animal.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 Basket.belongsToMany(Home, { through: BasketProduct, onDelete: 'CASCADE' })
 Home.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
+Basket.belongsToMany(Bag, { through: BasketProduct, onDelete: 'CASCADE' })
+Bag.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
+
+Basket.belongsToMany(BagFourty, { through: BasketProduct, onDelete: 'CASCADE' })
+BagFourty.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
+
+Basket.belongsToMany(BagFifty, { through: BasketProduct, onDelete: 'CASCADE' })
+BagFifty.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
+
+Basket.belongsToMany(BagMaterial, { through: BasketProduct, onDelete: 'CASCADE' })
+BagMaterial.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
+
 Basket.hasMany(BasketProduct)
 BasketProduct.belongsTo(Basket)
 
@@ -301,6 +347,24 @@ HomeImage.belongsTo(Home)
 Material.hasMany(HomeImage)
 HomeImage.belongsTo(Material)
 
+Bag.hasMany(BasketProduct)
+BasketProduct.belongsTo(Bag)
+
+BagFourty.hasMany(BasketProduct)
+BasketProduct.belongsTo(BagFourty)
+
+BagFifty.hasMany(BasketProduct)
+BasketProduct.belongsTo(BagFifty)
+
+BagMaterial.hasMany(BasketProduct)
+BasketProduct.belongsTo(BagMaterial)
+
+Bag.hasMany(BagImage, {onDelete: 'CASCADE', hooks: true})
+BagImage.belongsTo(Bag)
+
+BagMaterial.hasMany(BagImage)
+BagImage.belongsTo(BagMaterial)
+
 Basket.hasMany(Favorite)
 Favorite.belongsTo(Basket)
 
@@ -345,6 +409,21 @@ OrderItem.belongsTo(Animal)
 Home.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(Home)
 
+Bag.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
+OrderItem.belongsTo(Bag)
+
+BagFourty.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
+OrderItem.belongsTo(BagFourty)
+
+BagFifty.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
+OrderItem.belongsTo(BagFifty)
+
+BagMaterial.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
+OrderItem.belongsTo(BagMaterial)
+
+
+
+
 
 
 export {
@@ -370,5 +449,9 @@ export {
     Home,
     HomeImage,
     Favorite,
- 
+    Bag,
+    BagImage,
+    BagFourty,
+    BagFifty,
+    BagMaterial
 }

@@ -45,6 +45,12 @@ const pretty = (basket) => {
             return pretty(basket)
         }
 
+        async appendBag(basketId, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty) {
+            await BasketProductMapping.create({ basketId, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty })
+            const basket = await BasketMapping.findByPk(basketId)
+            return pretty(basket)
+        }
+
         async appendFavorite(basketId, productId) {
             await FavoriteMapping.create({ basketId, productId })
             const basket = await BasketMapping.findByPk(basketId)

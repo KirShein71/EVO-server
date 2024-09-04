@@ -26,8 +26,8 @@ const pretty = (basket) => {
             return pretty(basket)
         }
     
-        async append(basketId, productId, quantity, quantity_trunk, materialId, edgingId, trunkId, thirdrowId, saddleId, steelId, organizerId, organizerfiftyId, quantity_organizer, quantity_organizerfifty) {
-            await BasketProductMapping.create({ basketId, materialId, edgingId, trunkId, thirdrowId, productId, quantity, quantity_trunk, saddleId, steelId, organizerId, organizerfiftyId, quantity_organizer, quantity_organizerfifty })
+        async append(basketId, productId, quantity, quantity_trunk, materialId, edgingId, trunkId, thirdrowId, saddleId, steelId, organizerId, organizerfiftyId, quantity_organizer, quantity_organizerfifty, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty) {
+            await BasketProductMapping.create({ basketId, materialId, edgingId, trunkId, thirdrowId, productId, quantity, quantity_trunk, saddleId, steelId, organizerId, organizerfiftyId, quantity_organizer, quantity_organizerfifty, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty })
             const basket = await BasketMapping.findByPk(basketId)
             return pretty(basket)
         }

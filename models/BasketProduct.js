@@ -190,7 +190,7 @@ class BasketProduct {
             throw new Error('Строка не найдена в БД');
         }
 
-        if (basketproduct.bagfiftyId === null) {
+        if (basketproduct.bagfiftyId === null && basketproduct.productId === null) {
             await basketproduct.destroy();
             return basketproduct;
         } else {
@@ -209,7 +209,7 @@ class BasketProduct {
         if (!basketproduct) {
             throw new Error('Строка не найдена в БД');
         }
-        if (basketproduct.bagfourtyId === null) {
+        if (basketproduct.bagfourtyId === null && basketproduct.productId === null) {
             await basketproduct.destroy();
             return basketproduct;
         } else {

@@ -30,8 +30,8 @@ class Basket {
             else {
                 basketId = parseInt(req.signedCookies.basketId)
             }
-            const { productId, materialId, edgingId, trunkId, thirdrowId, quantity, quantity_trunk, saddleId, steelId, organizerId, organizerfiftyId, quantity_organizer, quantity_organizerfifty } = req.body
-            const basket = await BasketModel.append(basketId, productId, quantity, quantity_trunk, materialId, edgingId, trunkId, thirdrowId, saddleId, steelId, organizerId, organizerfiftyId, quantity_organizer, quantity_organizerfifty )
+            const { productId, materialId, edgingId, trunkId, thirdrowId, quantity, quantity_trunk, saddleId, steelId, organizerId, organizerfiftyId, quantity_organizer, quantity_organizerfifty, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty } = req.body
+            const basket = await BasketModel.append(basketId, productId, quantity, quantity_trunk, materialId, edgingId, trunkId, thirdrowId, saddleId, steelId, organizerId, organizerfiftyId, quantity_organizer, quantity_organizerfifty, bagId, bagmaterialId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty )
             res.cookie('basketId', basket.id, {maxAge, signed})
             res.json(basket)
         } catch(e) {

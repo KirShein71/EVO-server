@@ -52,6 +52,7 @@ const Bag = sequelize.define('bag', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
     new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+    image: { type: DataTypes.STRING, allowNull: false },
 })
 
 const BagImage = sequelize.define('bag_image', {

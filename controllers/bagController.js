@@ -32,7 +32,7 @@ class BagController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const bag = await BagModel.create(req.body)
+            const bag = await BagModel.create(req.body, req.files.image)
             res.json(bag)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -48,7 +48,7 @@ class BagController {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const bag = await BagModel.update(req.params.id, req.body)
+            const bag = await BagModel.update(req.params.id, req.body, req.files.image)
             res.json(bag)
         } catch(e) {
             next(AppError.badRequest(e.message))

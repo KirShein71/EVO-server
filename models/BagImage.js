@@ -12,8 +12,8 @@ async getAll() {
 
 async create(data, img) {
     const image = FileService.save(img) || ''
-    const {bagId, bagmaterialId} = data
-    const bagimage = await BagImageMapping.create({ bagId, bagmaterialId, image})
+    const {bagId, bagmaterialId, bagsizeId} = data
+    const bagimage = await BagImageMapping.create({ bagId, bagmaterialId, image, bagsizeId})
     
     const created = await BagImageMapping.findByPk(bagimage.id) 
     return created

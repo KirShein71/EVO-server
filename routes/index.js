@@ -13,8 +13,6 @@ import admin from './admin.js'
 import animal from './animal.js'
 import home from './home.js'
 import saddle from './saddle.js'
-import organizer from './organizer.js'
-import organizerfifty from './organizerfifty.js'
 import steel from './steel.js'
 import thirdrow from './thirdrow.js'
 import cdek from './cdek.js'
@@ -23,6 +21,7 @@ import homeimage from './homeimage.js'
 import animalimage from './animalimage.js'
 import bag from './bag.js'
 import bagimage from './bagimage.js'
+import bagpicture from './bagpicture.js'
 
 
 
@@ -42,8 +41,6 @@ router.use('/admin', admin)
 router.use('/animal', animal)
 router.use('/home', home)
 router.use('/saddle', saddle)
-router.use('/organizer', organizer)
-router.use('/organizerfifty', organizerfifty)
 router.use('/steel', steel)
 router.use('/thirdrow', thirdrow)
 router.use('/cdek', cdek)
@@ -52,6 +49,7 @@ router.use('/homeimage', homeimage)
 router.use('/animalimage', animalimage)
 router.use('/bag', bag)
 router.use('/bagimage', bagimage)
+router.use('/bagpicture', bagpicture)
 
 
 export default router

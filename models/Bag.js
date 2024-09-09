@@ -1,7 +1,7 @@
 import { Bag as BagMapping } from './mapping.js'
 import { BagImage as BagImageMapping} from './mapping.js'
-import { BagFourty as BagFourtyMapping } from './mapping.js'
-import { BagFifty as BagFiftyMapping } from './mapping.js'
+import {BagPicture as BagPictureMapping} from './mapping.js'
+import { BagSize as BagSizeMapping} from './mapping.js'
 import { BagMaterial as BagMaterialMapping} from './mapping.js'
 import FileService from '../services/File.js'
 
@@ -11,7 +11,10 @@ class Bag {
 
 async getAll() {
     const bags = await BagMapping.findAll({
-        include: [{model: BagImageMapping, attributes: ['id', 'image', 'bagmaterialId']}],
+        include: [
+            {model: BagImageMapping, attributes: ['id', 'image', 'bagmaterialId', 'bagsizeId']}, 
+            {model: BagPictureMapping, attributes: ['id', 'image', 'bagmaterialId', 'bagsizeId']}
+        ],
         order: [
             ['id', 'ASC'],
         ],
@@ -25,7 +28,10 @@ async getOne(originalName) {
             name: originalName
         },
 
-        include: [{model: BagImageMapping, attributes: ['id', 'image', 'bagmaterialId']}]
+        include: [
+            {model: BagImageMapping, attributes: ['id', 'image', 'bagmaterialId', 'bagsizeId']}, 
+            {model: BagPictureMapping, attributes: ['id', 'image', 'bagmaterialId', 'bagsizeId']}
+        ]
     })
     if (!bag) { 
         throw new Error('Товар не найден в БД')
@@ -90,23 +96,16 @@ async delete(id) {
     return bag
 }
 
-async getAllBagFourty() {
-    const bagfourty = await BagFourtyMapping.findAll({
+async getAllBagSize() {
+    const bagsize = await BagSizeMapping.findAll({
         order: [
             ['size', 'ASC'],
         ],
     })
-    return bagfourty
+    return bagsize
 }
 
-async getAllBagFifty() {
-    const bagfifty = await BagFiftyMapping.findAll({
-        order: [
-            ['size', 'ASC'],
-        ],
-    })
-    return bagfifty
-}
+
 
 
 async getAllBagMaterial() {

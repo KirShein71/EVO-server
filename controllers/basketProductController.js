@@ -92,27 +92,7 @@ class BasketProduct {
         }
     }
 
-    async deleteOrganizer(req, res, next) {
-        try {
-            const id = req.params.organizer_id;
-            
-            const basketproduct = await BasketProductModel.deleteOrganizer(req.signedCookies.basketId, id);
-            res.json(basketproduct);
-        } catch(e) {
-            next(AppError.badRequest(e.message));
-        }
-    }
 
-    async deleteOrganizerFifty(req, res, next) {
-        try {
-            const id = req.params.organizerfifty_id;
-            
-            const basketproduct = await BasketProductModel.deleteOrganizerFifty(req.signedCookies.basketId, id);
-            res.json(basketproduct);
-        } catch(e) {
-            next(AppError.badRequest(e.message));
-        }
-    }
 
     async deleteSteel(req, res, next) {
         try {
@@ -130,28 +110,6 @@ class BasketProduct {
             const id = req.params.saddle_id;
             
             const basketproduct = await BasketProductModel.deleteSaddle(req.signedCookies.basketId, id);
-            res.json(basketproduct);
-        } catch(e) {
-            next(AppError.badRequest(e.message));
-        }
-    }
-
-    async deleteBagFourty(req, res, next) {
-        try {
-            const id = req.params.bagfourty_id;
-            
-            const basketproduct = await BasketProductModel.deleteBagFourty(req.signedCookies.basketId, id);
-            res.json(basketproduct);
-        } catch(e) {
-            next(AppError.badRequest(e.message));
-        }
-    }
-
-    async deleteBagFifty(req, res, next) {
-        try {
-            const id = req.params.bagfifty_id;
-            
-            const basketproduct = await BasketProductModel.deleteBagFifty(req.signedCookies.basketId, id);
             res.json(basketproduct);
         } catch(e) {
             next(AppError.badRequest(e.message));

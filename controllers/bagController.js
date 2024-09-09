@@ -82,23 +82,15 @@ class BagController {
         }
     }
 
-    async getAllBagFourty(req, res, next) {
+    async getAllBagSize(req, res, next) {
         try {
-            const bags = await BagModel.getAllBagFourty(req.params.id);
+            const bags = await BagModel.getAllBagSize(req.params.id);
             res.json(bags);
         } catch(e) {
             next(AppError.badRequest(e.message));
         }
     }
 
-    async getAllBagFifty(req, res, next) {
-        try {
-            const bags = await BagModel.getAllBagFifty(req.params.id);
-            res.json(bags);
-        } catch(e) {
-            next(AppError.badRequest(e.message));
-        }
-    }
 
     async getAllBagMaterial(req, res, next) {
         try {

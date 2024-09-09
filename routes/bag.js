@@ -10,8 +10,7 @@ router.put('/updatePrice/:id([0-9]+)',  BagController.updatePrice)
 router.get('/getone/:originalName',  BagController.getOne)
 router.delete('/delete/:id([0-9]+)',  BagController.delete)
 
-router.get('/getAllBagFourty', BagController.getAllBagFourty)
-router.get('/getAllBagFifty', BagController.getAllBagFifty)
+router.get('/getAllBagSize', BagController.getAllBagSize)
 
 router.get('/getAllBagMaterial', BagController.getAllBagMaterial)
 

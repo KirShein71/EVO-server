@@ -60,17 +60,17 @@ const BagImage = sequelize.define('bag_image', {
     image: { type: DataTypes.STRING, allowNull: false },
 })
 
-const BagFourty = sequelize.define('bagfourty', {
+const BagPicture = sequelize.define('bag_picture', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    image: { type: DataTypes.STRING, allowNull: false },
+})
+
+const BagSize = sequelize.define('bagsize', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     size: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
 })
 
-const BagFifty = sequelize.define('bagfifty', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    size: { type: DataTypes.STRING, allowNull: false },
-    price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
-})
 
 const BagMaterial = sequelize.define('bagmaterial', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -129,22 +129,6 @@ const Steel = sequelize.define('steel', {
 })
 
 
-
-const Organizer = sequelize.define('organizer', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    size: { type: DataTypes.STRING, allowNull: false },
-    old_price: { type: DataTypes.INTEGER, unique: true, allowNull: true },
-    new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
-})
-
-const OrganizerFifty = sequelize.define('organizerfifty', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    size: { type: DataTypes.STRING, allowNull: false },
-    new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
-})
-
-
-
 const Basket = sequelize.define('basket', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 })
@@ -153,16 +137,13 @@ const BasketProduct = sequelize.define('basket_product', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     quantity: { type: DataTypes.INTEGER, defaultValue: 1 },
     quantity_trunk: { type: DataTypes.INTEGER, allowNull: true },
-    quantity_organizer: { type: DataTypes.INTEGER, allowNull: true },
-    quantity_organizerfifty: { type: DataTypes.INTEGER, allowNull: true },
     trunkId: {type: DataTypes.INTEGER, allowNull: true},
     animalId: {type: DataTypes.INTEGER, allowNull: true},
     homeId: {type: DataTypes.INTEGER, allowNull: true},
     saddleId: {type: DataTypes.INTEGER, allowNull: true},
     thirdrowId: {type: DataTypes.INTEGER, allowNull: true},
 
-    quantity_bagfourty: { type: DataTypes.INTEGER, allowNull: true },
-    quantity_bagfifty: { type: DataTypes.INTEGER, allowNull: true },
+
 })
 
 const Favorite = sequelize.define('favorite', {
@@ -216,10 +197,7 @@ const OrderItem = sequelize.define('order_item', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     quantity: { type: DataTypes.INTEGER, allowNull: true  },
     quantity_trunk: { type: DataTypes.INTEGER, allowNull: true },
-    quantity_organizer: { type: DataTypes.INTEGER, allowNull: true  },
-    quantity_organizerfifty: { type: DataTypes.INTEGER, allowNull: true },
-    quantity_bagfourty: {type: DataTypes.INTEGER, allowNull: true },
-    quantity_bagfifty: {type: DataTypes.INTEGER, allowNull: true }
+
 
 
 })
@@ -269,12 +247,6 @@ Saddle.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 Basket.belongsToMany(Steel, { through: BasketProduct, onDelete: 'CASCADE' })
 Steel.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
-Basket.belongsToMany(Organizer, { through: BasketProduct, onDelete: 'CASCADE' })
-Organizer.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
-
-Basket.belongsToMany(OrganizerFifty, { through: BasketProduct, onDelete: 'CASCADE' })
-OrganizerFifty.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
-
 Basket.belongsToMany(Trunk, { through: BasketProduct, onDelete: 'CASCADE' })
 Trunk.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
@@ -290,11 +262,9 @@ Home.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 Basket.belongsToMany(Bag, { through: BasketProduct, onDelete: 'CASCADE' })
 Bag.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
-Basket.belongsToMany(BagFourty, { through: BasketProduct, onDelete: 'CASCADE' })
-BagFourty.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
+Basket.belongsToMany(BagSize, { through: BasketProduct, onDelete: 'CASCADE' })
+BagSize.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
-Basket.belongsToMany(BagFifty, { through: BasketProduct, onDelete: 'CASCADE' })
-BagFifty.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
 Basket.belongsToMany(BagMaterial, { through: BasketProduct, onDelete: 'CASCADE' })
 BagMaterial.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
@@ -317,12 +287,6 @@ BasketProduct.belongsTo(Saddle)
 
 Steel.hasMany(BasketProduct)
 BasketProduct.belongsTo(Steel)
-
-Organizer.hasMany(BasketProduct)
-BasketProduct.belongsTo(Organizer)
-
-OrganizerFifty.hasMany(BasketProduct)
-BasketProduct.belongsTo(OrganizerFifty)
 
 Trunk.hasMany(BasketProduct)
 BasketProduct.belongsTo(Trunk)
@@ -351,11 +315,8 @@ HomeImage.belongsTo(Material)
 Bag.hasMany(BasketProduct)
 BasketProduct.belongsTo(Bag)
 
-BagFourty.hasMany(BasketProduct)
-BasketProduct.belongsTo(BagFourty)
-
-BagFifty.hasMany(BasketProduct)
-BasketProduct.belongsTo(BagFifty)
+BagSize.hasMany(BasketProduct)
+BasketProduct.belongsTo(BagSize)
 
 BagMaterial.hasMany(BasketProduct)
 BasketProduct.belongsTo(BagMaterial)
@@ -363,8 +324,20 @@ BasketProduct.belongsTo(BagMaterial)
 Bag.hasMany(BagImage, {onDelete: 'CASCADE', hooks: true})
 BagImage.belongsTo(Bag)
 
+Bag.hasMany(BagPicture, {onDelete: 'CASCADE', hooks: true})
+BagPicture.belongsTo(Bag)
+
+BagSize.hasMany(BagImage)
+BagImage.belongsTo(BagSize)
+
 BagMaterial.hasMany(BagImage)
 BagImage.belongsTo(BagMaterial)
+
+BagSize.hasMany(BagPicture)
+BagPicture.belongsTo(BagSize)
+
+BagMaterial.hasMany(BagPicture)
+BagPicture.belongsTo(BagMaterial)
 
 Basket.hasMany(Favorite)
 Favorite.belongsTo(Basket)
@@ -392,12 +365,6 @@ OrderItem.belongsTo(Saddle)
 Steel.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(Steel)
 
-Organizer.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
-OrderItem.belongsTo(Organizer)
-
-OrganizerFifty.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
-OrderItem.belongsTo(OrganizerFifty)
-
 Trunk.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(Trunk)
 
@@ -413,19 +380,12 @@ OrderItem.belongsTo(Home)
 Bag.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(Bag)
 
-BagFourty.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
-OrderItem.belongsTo(BagFourty)
+BagSize.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
+OrderItem.belongsTo(BagSize)
 
-BagFifty.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
-OrderItem.belongsTo(BagFifty)
 
 BagMaterial.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(BagMaterial)
-
-
-
-
-
 
 export {
     Brand,
@@ -438,8 +398,6 @@ export {
     CellShape,
     Saddle,
     Steel,
-    Organizer,
-    OrganizerFifty,
     Basket,
     BasketProduct,
     Order, 
@@ -452,7 +410,7 @@ export {
     Favorite,
     Bag,
     BagImage,
-    BagFourty,
-    BagFifty,
+    BagPicture,
+    BagSize,
     BagMaterial
 }

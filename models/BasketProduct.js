@@ -5,12 +5,10 @@ import { Material as MaterialMapping } from './mapping.js'
 import { Edging as EdgingMapping} from './mapping.js'
 import { Trunk as TrunkMapping } from './mapping.js'
 import { Thirdrow as ThirdrowMapping } from './mapping.js'
-import {Animal as AnimalMapping} from './mapping.js'
 import { Home as HomeMapping} from './mapping.js'
 import { Saddle as SaddleMapping } from './mapping.js'
 import { Steel as SteelMapping} from './mapping.js'
 import { HomeImage as HomeImageMapping} from './mapping.js'
-import { AnimalImage as AnimalImageMapping } from './mapping.js'
 import {Bag as BagMapping} from './mapping.js'
 import {BagImage as BagImageMapping} from './mapping.js'
 import { BagSize as BagSizeMapping } from './mapping.js'
@@ -32,11 +30,6 @@ class BasketProduct {
                     ]
                 },
                 {model: ThirdrowMapping, attributes: ['new_price']},
-                {model: AnimalMapping, attributes: ['name',  'new_price'],
-                    include: [
-                        {model: AnimalImageMapping, attributes: ['image', 'materialId']}
-                    ]
-                },
                 {model: HomeMapping, attributes: ['name', 'new_price'], 
                     include: [
                         {model: HomeImageMapping, attributes: ['image', 'materialId']}

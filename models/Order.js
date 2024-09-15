@@ -5,7 +5,6 @@ import { Material as MaterialMapping} from './mapping.js'
 import { Edging as EdgingMapping } from './mapping.js'
 import { Trunk as TrunkMapping} from './mapping.js'
 import { Thirdrow as ThirdrowMapping } from './mapping.js'
-import { Animal as AnimalMapping } from './mapping.js'
 import { Home as HomeMapping} from './mapping.js'
 import { Saddle as SaddleMapping } from './mapping.js'
 import { Steel as SteelMapping } from './mapping.js'
@@ -22,7 +21,6 @@ class Order {
                     include: [
                         {model: OrderMapping, attributes: ['name', 'surname', 'phone', 'status', 'id', 'delivery', 'region', 'city', 'codepvz', 'totalamount', 'citycode', 'street', 'home', 'flat']},
                         { model: ProductMapping, attributes: ['name'] }, 
-                        {model: AnimalMapping, attributes: ['name']},
                         {model: HomeMapping, attributes: ['name'], },
                         { model: MaterialMapping, attributes: ['name'] },
                         { model: EdgingMapping, attributes: ['name']},
@@ -90,7 +88,6 @@ class Order {
         for (let item of items) {
             await OrderItemMapping.create({
                 productId: item.productId, 
-                animalId: item.animalId,
                 homeId: item.homeId,
                 orderId: order.id,
                 materialId: item.materialId,
@@ -132,7 +129,6 @@ class Order {
         for (let item of items) {
             await OrderItemMapping.create({
                 productId: item.productId, 
-                animalId: item.animalId,
                 homeId: item.homeId,
                 orderId: order.id,
                 materialId: item.materialId,

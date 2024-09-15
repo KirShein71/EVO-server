@@ -24,18 +24,6 @@ const Product = sequelize.define('product', {
     sale: { type: DataTypes.INTEGER, allowNull: true}
 })
 
-const Animal = sequelize.define('animal', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type: DataTypes.STRING, unique: true, allowNull: false },
-    old_price: { type: DataTypes.INTEGER, unique: true, allowNull: true },
-    new_price: { type: DataTypes.INTEGER, unique: true, allowNull: false },
-})
-
-const AnimalImage = sequelize.define('animal_image', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    image: { type: DataTypes.STRING, allowNull: false },
-})
-
 const Home = sequelize.define('home', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -138,7 +126,6 @@ const BasketProduct = sequelize.define('basket_product', {
     quantity: { type: DataTypes.INTEGER, defaultValue: 1 },
     quantity_trunk: { type: DataTypes.INTEGER, allowNull: true },
     trunkId: {type: DataTypes.INTEGER, allowNull: true},
-    animalId: {type: DataTypes.INTEGER, allowNull: true},
     homeId: {type: DataTypes.INTEGER, allowNull: true},
     saddleId: {type: DataTypes.INTEGER, allowNull: true},
     thirdrowId: {type: DataTypes.INTEGER, allowNull: true},
@@ -253,9 +240,6 @@ Trunk.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 Basket.belongsToMany(Thirdrow, { through: BasketProduct, onDelete: 'CASCADE' })
 Thirdrow.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
-Basket.belongsToMany(Animal, { through: BasketProduct, onDelete: 'CASCADE' })
-Animal.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
-
 Basket.belongsToMany(Home, { through: BasketProduct, onDelete: 'CASCADE' })
 Home.belongsToMany(Basket, { through: BasketProduct, onDelete: 'CASCADE' })
 
@@ -293,15 +277,6 @@ BasketProduct.belongsTo(Trunk)
 
 Thirdrow.hasMany(BasketProduct)
 BasketProduct.belongsTo(Thirdrow)
-
-Animal.hasMany(BasketProduct)
-BasketProduct.belongsTo(Animal)
-
-Animal.hasMany(AnimalImage, {onDelete: 'CASCADE', hooks: true})
-AnimalImage.belongsTo(Animal)
-
-Material.hasMany(AnimalImage)
-AnimalImage.belongsTo(Material)
 
 Home.hasMany(BasketProduct)
 BasketProduct.belongsTo(Home)
@@ -371,8 +346,6 @@ OrderItem.belongsTo(Trunk)
 Thirdrow.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(Thirdrow)
 
-Animal.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
-OrderItem.belongsTo(Animal)
 
 Home.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(Home)
@@ -403,8 +376,6 @@ export {
     Order, 
     OrderItem,
     Admin,
-    Animal,
-    AnimalImage,
     Home,
     HomeImage,
     Favorite,

@@ -10,7 +10,6 @@ import basketproduct from './basketproduct.js'
 import order from './order.js'
 import trunk from './trunk.js'
 import admin from './admin.js'
-import animal from './animal.js'
 import home from './home.js'
 import saddle from './saddle.js'
 import steel from './steel.js'
@@ -18,7 +17,6 @@ import thirdrow from './thirdrow.js'
 import cdek from './cdek.js'
 import favorite from './favorite.js'
 import homeimage from './homeimage.js'
-import animalimage from './animalimage.js'
 import bag from './bag.js'
 import bagimage from './bagimage.js'
 import bagpicture from './bagpicture.js'
@@ -38,7 +36,6 @@ router.use('/basket', basket)
 router.use('/basketproduct', basketproduct)
 router.use('/order', order)
 router.use('/admin', admin)
-router.use('/animal', animal)
 router.use('/home', home)
 router.use('/saddle', saddle)
 router.use('/steel', steel)
@@ -46,7 +43,6 @@ router.use('/thirdrow', thirdrow)
 router.use('/cdek', cdek)
 router.use('/favorite', favorite)
 router.use('/homeimage', homeimage)
-router.use('/animalimage', animalimage)
 router.use('/bag', bag)
 router.use('/bagimage', bagimage)
 router.use('/bagpicture', bagpicture)

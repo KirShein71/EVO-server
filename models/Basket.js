@@ -33,12 +33,6 @@ const pretty = (basket) => {
         }
 
     
-        async appendAnimal(basketId, animalId, materialId, quantity) {
-            await BasketProductMapping.create({ basketId, animalId, materialId, quantity })
-            const basket = await BasketMapping.findByPk(basketId)
-            return pretty(basket)
-        }
-
         async appendHome(basketId, homeId, materialId, quantity) {
             await BasketProductMapping.create({ basketId, homeId, materialId, quantity })
             const basket = await BasketMapping.findByPk(basketId)

@@ -31,8 +31,8 @@ class Order {
 
     async createAdmin(req, res, next) {
         try {
-            const { name, surname, phone, delivery, region, city, productId, materialId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty, bagId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty } = req.body;
-            const items = [{ productId, materialId, edgingId, saddleId, steelId, organizerId, organizerfiftyId, trunkId, thirdrowId, quantity, quantity_trunk, quantity_organizer, quantity_organizerfifty, bagId, bagfourtyId, bagfiftyId, quantity_bagfourty, quantity_bagfifty}]
+            const { name, surname, phone, delivery, region, city, productId, materialId, edgingId, saddleId, steelId, trunkId, thirdrowId, quantity, quantity_trunk, bagId, homeId} = req.body;
+            const items = [{ productId, materialId, edgingId, saddleId, steelId, trunkId, thirdrowId, quantity, quantity_trunk, bagId, homeId}]
             if (!name) throw new Error('Не указано имя покупателя');
             if (!surname) throw new Error('Не указана фамалия покупателя');
             if (!phone) throw new Error('Не указан телефон покупателя');

@@ -125,7 +125,7 @@ class CdekModel  {
    
         try {
             const requestData = {
-                tariff_code: 137,
+                tariff_code: 233,
                 from_location: {
                     code: 137
                 },
@@ -162,7 +162,7 @@ class CdekModel  {
     async createOrderCdek(accessToken, id, name, surname, phone, codepvz, totalamount, citycode) {
         try {
             const tariffResponse = await axios.post('https://api.cdek.ru/v2/calculator/tariff', {
-                tariff_code: 136,
+                tariff_code: 234,
                 from_location: {
                   code: 137
                 },
@@ -218,7 +218,7 @@ class CdekModel  {
                             number : phone
                         } ]
                     },
-                tariff_code : 136
+                tariff_code : 234
                         };
 
             console.log(JSON.stringify(requestData, null, 2));
@@ -241,7 +241,7 @@ class CdekModel  {
         try {
             // Получение данных о тарифах
             const tariffResponse = await axios.post('https://api.cdek.ru/v2/calculator/tariff', {
-              tariff_code: 137,
+              tariff_code: 233,
               from_location: {
                 code: 137
               },
@@ -307,7 +307,7 @@ class CdekModel  {
                   }
                 ]
               },
-              tariff_code: 137
+              tariff_code: 233
             };
         
             const orderResponse = await axios.post('https://api.cdek.ru/v2/orders', JSON.stringify(requestData), {

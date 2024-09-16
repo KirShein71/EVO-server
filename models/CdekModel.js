@@ -87,7 +87,7 @@ class CdekModel  {
    
         try {
             const requestData = {
-                tariff_code: 136,
+                tariff_code: 234,
                 from_location: {
                     code: 137
                 },

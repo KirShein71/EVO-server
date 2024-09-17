@@ -62,6 +62,21 @@ class Order {
         }
     }
 
+    async createNote(req, res, next) {
+        try {
+            if (!req.params.id) {
+                throw new Error('Не указан id товара')
+            }
+            if (Object.keys(req.body).length === 0) {
+                throw new Error('Нет данных для обновления')
+            }
+            const order = await OrderModel.createNote(req.params.id, req.body,)
+            res.json(order)
+        } catch(e) {
+            next(AppError.badRequest(e.message))
+        }
+    }
+
     async updateOrder(req, res, next) {
         try {
             if (!req.params.id) {

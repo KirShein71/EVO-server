@@ -152,6 +152,7 @@ const Order = sequelize.define('order', {
     street: {type: DataTypes.STRING, allowNull: true},
     home: {type: DataTypes.STRING, allowNull: true},
     flat: {type: DataTypes.STRING, allowNull: true},
+    note: {type: DataTypes.STRING, allowNull: true},
 
     
     prettyCreatedAt: {

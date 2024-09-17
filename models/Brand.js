@@ -13,6 +13,19 @@ async getAll() {
     return brands
 }
 
+async getBrandToPromo() {
+    const brands = await BrandMapping.findAll({
+        order: [
+            ['name', 'ASC'],
+        ],
+    });
+
+    // Фильтруем brands по нужным id
+    const filteredBrands = brands.filter(brand => [9, 69, 10, 64, 12, 72, 23, 26, 35, 29, 44, 49, 50, 51, 68].includes(brand.id));
+
+    return filteredBrands;
+}
+
 async getOne(name) {
     const brand = await BrandMapping.findOne({
         where: {

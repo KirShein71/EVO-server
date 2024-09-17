@@ -12,6 +12,15 @@ class BrandController {
         }
     }
 
+    async getBrandToPromo(req, res, next) {
+        try {
+            const brand = await BrandModel.getBrandToPromo()
+            res.json(brand)
+        } catch(e) {
+            next(AppError.badRequest(e.message))
+        }
+    }
+
     async getOne(req, res, next) {
         try {
             if (!req.params.name) {

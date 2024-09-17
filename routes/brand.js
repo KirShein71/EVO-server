@@ -4,6 +4,7 @@ import BrandController from '../controllers/brandController.js'
 const router = new express.Router()
 
 router.get('/getall', BrandController.getAll)
+router.get('/getBrandToPromo', BrandController.getBrandToPromo)
 router.post('/create',  BrandController.create)
 router.put('/update/:id([0-9]+)',  BrandController.update)
 router.get('/getone/:name',  BrandController.getOne)

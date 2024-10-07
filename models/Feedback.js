@@ -11,13 +11,13 @@ class Feedback {
         if (!feedback) {
             throw new Error('Заказ не найден в БД')
         }
-        const { name, phone, note, note_admin} = feedback
-        return { name, phone, note, note_admin}
+        const { name, phone, note_admin} = feedback
+        return { name, phone, note_admin}
     }
 
     async createFeedback(data) {
-        const {name, phone, note, note_admin} = data
-        const feedback = await FeedbackMapping.create({ name, phone, note, note_admin})
+        const {name, phone, note_admin} = data
+        const feedback = await FeedbackMapping.create({ name, phone, note_admin})
         
         const created = await FeedbackMapping.findByPk(feedback.id) 
         return created

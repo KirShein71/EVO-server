@@ -202,7 +202,6 @@ const Feedback = sequelize.define('feedback', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     phone: { type: DataTypes.STRING, allowNull: false },
     name: {type: DataTypes.STRING, allowNull: false},
-    note: {type: DataTypes.STRING, allowNull: true},
     note_admin: {type: DataTypes.STRING, allowNull: true}
 })
 

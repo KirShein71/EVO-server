@@ -1,4 +1,5 @@
 import { Admin as AdminMapping } from "./mapping.js";
+import { User as UserMapping} from './mapping.js'
 
 class Admin {
 
@@ -9,7 +10,10 @@ class Admin {
 
 
     async getByPhone(phone) {
-        const admin = await AdminMapping.findOne({where: {phone}})
+        let admin = await AdminMapping.findOne({where: {phone}})
+        if (!admin) {
+            admin = await UserMapping.findOne({ where: { phone } });
+        }
         if (!admin) {
             throw new Error('Пользователь не найден в БД')
         }

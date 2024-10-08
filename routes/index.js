@@ -21,6 +21,7 @@ import bag from './bag.js'
 import bagimage from './bagimage.js'
 import bagpicture from './bagpicture.js'
 import feedback from './feedback.js'
+import user from './user.js'
 
 
 
@@ -48,6 +49,7 @@ router.use('/bag', bag)
 router.use('/bagimage', bagimage)
 router.use('/bagpicture', bagpicture)
 router.use('/feedback', feedback)
+router.use('/user', user)
 
 
 export default router

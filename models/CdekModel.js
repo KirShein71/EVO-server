@@ -83,45 +83,83 @@ class CdekModel  {
   }
 
     
-    async getRatesPvz(accessToken, cityCode) {
+  async getRatesEconomPackagePvz(accessToken, cityCode) {
    
-        try {
-            const requestData = {
-                tariff_code: 234,
-                from_location: {
-                    code: 137
-                },
-                to_location: {
-                    code: cityCode
-                },
-                
-                
-                packages: [
-                    {
-                        height: 5,
-                        length: 75,
-                        weight: 2000,
-                        width: 40
-                    }
-                ]
-            };
+    try {
+        const requestData = {
+            tariff_code: 234,
+            from_location: {
+                code: 137
+            },
+            to_location: {
+                code: cityCode
+            },
+            
+            
+            packages: [
+                {
+                    height: 5,
+                    length: 75,
+                    weight: 2000,
+                    width: 40
+                }
+            ]
+        };
 
-            console.log(JSON.stringify(requestData, null, 2));
-            const response = await axios.post('https://api.cdek.ru/v2/calculator/tariff', JSON.stringify(requestData), {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
+        console.log(JSON.stringify(requestData, null, 2));
+        const response = await axios.post('https://api.cdek.ru/v2/calculator/tariff', JSON.stringify(requestData), {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
 
-            return response.data;
-        } catch (error) {
-            console.error('Ошибка получения данных о тарифах:', error);
-            return null;
-        }
+        return response.data;
+    } catch (error) {
+        console.error('Ошибка получения данных о тарифах:', error);
+        return null;
     }
+}
 
-    async getRatesDelivery(accessToken, cityCode) {
+async getRatesPackagePvz(accessToken, cityCode) {
+   
+    try {
+        const requestData = {
+            tariff_code: 136,
+            from_location: {
+                code: 137
+            },
+            to_location: {
+                code: cityCode
+            },
+            
+            
+            packages: [
+                {
+                    height: 5,
+                    length: 75,
+                    weight: 2000,
+                    width: 40
+                }
+            ]
+        };
+
+        console.log(JSON.stringify(requestData, null, 2));
+        const response = await axios.post('https://api.cdek.ru/v2/calculator/tariff', JSON.stringify(requestData), {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error('Ошибка получения данных о тарифах:', error);
+        return null;
+    }
+}
+
+    async getRatesEconomDelivery(accessToken, cityCode) {
    
         try {
             const requestData = {
@@ -159,10 +197,48 @@ class CdekModel  {
         }
     }
 
-    async createOrderCdek(accessToken, id, name, surname, phone, codepvz, totalamount, citycode) {
+    async getRatesDelivery(accessToken, cityCode) {
+   
+        try {
+            const requestData = {
+                tariff_code: 137,
+                from_location: {
+                    code: 137
+                },
+                to_location: {
+                    code: cityCode
+                },
+                
+                
+                packages: [
+                    {
+                        height: 5,
+                        length: 75,
+                        weight: 2000,
+                        width: 40
+                    }
+                ]
+            };
+
+            console.log(JSON.stringify(requestData, null, 2));
+            const response = await axios.post('https://api.cdek.ru/v2/calculator/tariff', JSON.stringify(requestData), {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка получения данных о тарифах:', error);
+            return null;
+        }
+    }
+
+    async createOrderCdek(accessToken, id, name, surname, phone, codepvz, totalamount, citycode, tariffcode) {
         try {
             const tariffResponse = await axios.post('https://api.cdek.ru/v2/calculator/tariff', {
-                tariff_code: 234,
+                tariff_code: tariffcode,
                 from_location: {
                   code: 137
                 },
@@ -218,7 +294,7 @@ class CdekModel  {
                             number : phone
                         } ]
                     },
-                tariff_code : 234
+                tariff_code : tariffcode
                         };
 
             console.log(JSON.stringify(requestData, null, 2));
@@ -237,11 +313,11 @@ class CdekModel  {
         }
     }
 
-    async createOrderCdekDelivery(accessToken, id, name, surname, phone, totalamount, citycode, street, home, flat) {
+    async createOrderCdekDelivery(accessToken, id, name, surname, phone, totalamount, citycode, street, home, flat, tariffcode) {
         try {
             // Получение данных о тарифах
             const tariffResponse = await axios.post('https://api.cdek.ru/v2/calculator/tariff', {
-              tariff_code: 233,
+              tariff_code: tariffcode,
               from_location: {
                 code: 137
               },
@@ -307,7 +383,7 @@ class CdekModel  {
                   }
                 ]
               },
-              tariff_code: 233
+              tariff_code: tariffcode
             };
         
             const orderResponse = await axios.post('https://api.cdek.ru/v2/orders', JSON.stringify(requestData), {

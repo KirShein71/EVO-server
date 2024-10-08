@@ -19,7 +19,7 @@ class Order {
     async getAll() {
         const orders = await OrderItemMapping.findAll({
                     include: [
-                        {model: OrderMapping, attributes: ['name', 'surname', 'phone', 'status', 'id', 'delivery', 'region', 'city', 'codepvz', 'totalamount', 'citycode', 'street', 'home', 'flat', 'note']},
+                        {model: OrderMapping, attributes: ['name', 'surname', 'phone', 'status', 'id', 'delivery', 'region', 'city', 'codepvz', 'totalamount', 'citycode', 'street', 'home', 'flat', 'note', 'tariffcode', 'location']},
                         { model: ProductMapping, attributes: ['name'] }, 
                         {model: HomeMapping, attributes: ['name'], },
                         { model: MaterialMapping, attributes: ['name'] },
@@ -47,8 +47,8 @@ class Order {
         if (!order) {
             throw new Error('Заказ не найден в БД')
         }
-        const { status, name, surname, phone, city, region, delivery, codepvz, totalamount, citycode, street, home, flat, note} = order
-        return { status, name, surname, phone, city, region, delivery, codepvz, totalamount, citycode, street, home, flat, note}
+        const { status, name, surname, phone, city, region, delivery, codepvz, totalamount, citycode, street, home, flat, note, tariffcode, location} = order
+        return { status, name, surname, phone, city, region, delivery, codepvz, totalamount, citycode, street, home, flat, note, tariffcode, location}
     }
 
     async getOneOrderItem(id) {
@@ -68,7 +68,7 @@ class Order {
             throw new Error('Data or items are missing');
         }
         const items = data.items;
-        const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, status = 'Новый' } = data;
+        const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, status = 'Новый', tariffcode, location } = data;
         const order = await OrderMapping.create({
             name,
             surname,
@@ -82,7 +82,9 @@ class Order {
             citycode, 
             street, 
             home, 
-            flat
+            flat,
+            tariffcode,
+            location
         });
     
         for (let item of items) {

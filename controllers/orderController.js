@@ -8,7 +8,7 @@ class Order {
 
     async create(req, res, next) {
         try {
-            const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, items } = req.body;
+            const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, items } = req.body;
             
             
             if (!name) throw new Error('Не указано имя покупателя');
@@ -21,7 +21,7 @@ class Order {
             // Очистить корзину перед созданием заказа
             await BasketModel.clear(parseInt(req.signedCookies.basketId));
             
-            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, items });
+            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, items });
             
             res.json(order);
         } catch(e) {

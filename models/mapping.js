@@ -153,6 +153,8 @@ const Order = sequelize.define('order', {
     home: {type: DataTypes.STRING, allowNull: true},
     flat: {type: DataTypes.STRING, allowNull: true},
     note: {type: DataTypes.STRING, allowNull: true},
+    tariffcode: {type: DataTypes.STRING, allowNull: true},
+    location: {type: DataTypes.STRING, allowNull: true},
 
     
     prettyCreatedAt: {
@@ -194,6 +196,13 @@ const Admin = sequelize.define('admin', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     phone: { type: DataTypes.STRING, unique: true },
     role: { type: DataTypes.STRING, defaultValue: "ADMIN" },
+    password: { type: DataTypes.STRING, allowNull: false },
+})
+
+const User = sequelize.define('user', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    phone: { type: DataTypes.STRING, unique: true },
+    role: { type: DataTypes.STRING, defaultValue: "USER" },
     password: { type: DataTypes.STRING, allowNull: false },
 })
 
@@ -366,6 +375,9 @@ OrderItem.belongsTo(BagSize)
 BagMaterial.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(BagMaterial)
 
+// User.hasMany(Order)
+// Order.belongsTo(User)
+
 export {
     Brand,
     Product,
@@ -390,5 +402,6 @@ export {
     BagPicture,
     BagSize,
     BagMaterial,
-    Feedback
+    Feedback,
+    User
 }

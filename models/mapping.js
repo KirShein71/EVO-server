@@ -155,6 +155,7 @@ const Order = sequelize.define('order', {
     note: {type: DataTypes.STRING, allowNull: true},
     tariffcode: {type: DataTypes.STRING, allowNull: true},
     location: {type: DataTypes.STRING, allowNull: true},
+    deliverysum: {type: DataTypes.STRING, allowNull: true},
 
     
     prettyCreatedAt: {

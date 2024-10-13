@@ -14,7 +14,8 @@ router.put('/updatePhone/:id([0-9]+)',  OrderController.updatePhone)
 router.put('/updateDelivery/:id([0-9]+)',  OrderController.updateDelivery)
 router.get('/getOne/:id([0-9]+)', OrderController.getOne)
 router.get('/getOneOrderItem/:id([0-9]+)', OrderController.getOneOrderItem)
-router.delete('/delete/:id([0-9]+)', OrderController.delete)
+router.delete('/deleteOrder/:id([0-9]+)', OrderController.deleteOrder)
+router.delete('/deleteOrderItem/:id([0-9]+)', OrderController.deleteOrderItem)
 
 
 

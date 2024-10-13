@@ -8,7 +8,7 @@ class Order {
 
     async create(req, res, next) {
         try {
-            const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, items } = req.body;
+            const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, deliverysum, items } = req.body;
             
             
             if (!name) throw new Error('Не указано имя покупателя');
@@ -21,7 +21,7 @@ class Order {
             // Очистить корзину перед созданием заказа
             await BasketModel.clear(parseInt(req.signedCookies.basketId));
             
-            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, items });
+            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, deliverysum, items });
             
             res.json(order);
         } catch(e) {
@@ -157,12 +157,24 @@ class Order {
         }
     }
     
-    async delete(req, res, next) {
+    async deleteOrder(req, res, next) {
         try {
             if (!req.params.id) {
                 throw new Error('Не указан id заказа')
             }
-            const order = await OrderModel.delete(req.params.id)
+            const order = await OrderModel.deleteOrder(req.params.id)
+            res.json(order)
+        } catch(e) {
+            next(AppError.badRequest(e.message))
+        }
+    }
+
+    async deleteOrderItem(req, res, next) {
+        try {
+            if (!req.params.id) {
+                throw new Error('Не указан id заказа')
+            }
+            const order = await OrderModel.deleteOrderItem(req.params.id)
             res.json(order)
         } catch(e) {
             next(AppError.badRequest(e.message))

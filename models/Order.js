@@ -17,29 +17,50 @@ import { BagSize as BagSizeMapping } from './mapping.js'
 
 class Order {
     async getAll() {
-        const orders = await OrderItemMapping.findAll({
+        const orders = await OrderMapping.findAll({
+            include: [
+                {
+                    model: OrderItemMapping,
                     include: [
-                        {model: OrderMapping, attributes: ['name', 'surname', 'phone', 'status', 'id', 'delivery', 'region', 'city', 'codepvz', 'totalamount', 'citycode', 'street', 'home', 'flat', 'note', 'tariffcode', 'location', 'deliverysum']},
-                        { model: ProductMapping, attributes: ['name'] }, 
-                        {model: HomeMapping, attributes: ['name'], },
+                        { model: ProductMapping, attributes: ['name', 'new_price'] },
+                        { model: HomeMapping, attributes: ['name', 'new_price'] },
                         { model: MaterialMapping, attributes: ['name'] },
-                        { model: EdgingMapping, attributes: ['name']},
-                        {model: TrunkMapping, include: [{model: ProductMapping, attributes: ['name']}]},
-                        {model: ThirdrowMapping},
-                        {model: SaddleMapping, attributes: ['name']},
-                        {model: SteelMapping, attributes: ['name']},
-                        {model: BagMapping, attributes: ['name']},
-                        {model: BagMaterialMapping,  attributes: ['name']},
-                        {model: BagSizeMapping, attributes: ['size']}
-
-                  
-                    ],
-                    order: [
-                        ['id', 'ASC'],
-                    ],
-                },
-        )
-        return orders
+                        { model: EdgingMapping, attributes: ['name'] },
+                        { model: TrunkMapping, attributes: ['new_price'], include: [{ model: ProductMapping, attributes: ['name'] }] },
+                        { model: ThirdrowMapping, attributes: ['new_price'] },
+                        { model: SaddleMapping, attributes: ['name', 'new_price'] },
+                        { model: SteelMapping, attributes: ['name', 'new_price'] },
+                        { model: BagMapping, attributes: ['name'] },
+                        { model: BagMaterialMapping, attributes: ['name'] },
+                        { model: BagSizeMapping, attributes: ['size', 'price'] }
+                    ]
+                }
+            ],
+            order: [['id', 'ASC']]
+        });
+    
+        // Суммируем цены для каждого заказа
+        const ordersWithTotal = orders.map(order => {
+            const orderTotal = order.order_items.reduce((itemTotal, orderItem) => {
+                // Суммируем цены каждого атрибута
+                return itemTotal +
+                    (orderItem.product ? orderItem.product.new_price * orderItem.quantity : 0) +
+                    (orderItem.home ? orderItem.home.new_price * orderItem.quantity : 0) +
+                    (orderItem.bagsize ? orderItem.bagsize.price * orderItem.quantity : 0) +
+                    (orderItem.steel ? orderItem.steel.new_price : 0) +
+                    (orderItem.saddle ? orderItem.saddle.new_price : 0) +
+                    (orderItem.thirdrow ? orderItem.thirdrow.new_price * orderItem.quantity : 0) +
+                    (orderItem.trunk ? orderItem.trunk.new_price * (orderItem.quantity_trunk || 1) : 0);
+            }, 0);
+    
+            return {
+                ...order.toJSON(), // Преобразуем заказ в объект
+                total: orderTotal // Добавляем сумму заказа
+            };
+        });
+    
+        console.log("Orders with Total:", ordersWithTotal);
+        return ordersWithTotal; // Возвращаем заказы с их суммами
     }
 
     async getOne(id) {
@@ -111,6 +132,22 @@ class Order {
     
         const created = await OrderMapping.findByPk(order.id);
         return created;
+    }
+
+    async createOrderBag(data) {
+        const {bagId, bagmaterialId, bagsizeId, quantity, orderId } = data
+        const items = await OrderItemMapping.create({ bagId, bagmaterialId, bagsizeId, quantity, orderId })
+        
+        const created = await OrderItemMapping.findByPk(items.id) 
+        return created
+    }
+
+    async createOrderAutoRug(data) {
+        const {productId, materialId, edgingId, trunkId, thirdrowId, saddleId, steelId, quantity, quantity_trunk, orderId } = data
+        const items = await OrderItemMapping.create({ productId, materialId, edgingId, trunkId, thirdrowId, saddleId, steelId, quantity, quantity_trunk,  orderId })
+        
+        const created = await OrderItemMapping.findByPk(items.id) 
+        return created
     }
 
     async createAdmin(data) {
@@ -209,6 +246,20 @@ class Order {
             phone = order.phone,
         } = data
         await order.update({phone})
+        await order.reload()
+        return order
+    }
+
+    async updateName(id, data) {
+        const order = await OrderMapping.findByPk(id)
+        if (!order) {
+            throw new Error('Заказ не найден в БД')
+        }
+        const {
+            name = order.name,
+            surname = order.surname,
+        } = data
+        await order.update({name, surname})
         await order.reload()
         return order
     }

@@ -165,9 +165,8 @@ const Order = sequelize.define('order', {
             const day = value.getDate()
             const month = value.getMonth() + 1
             const year = value.getFullYear()
-            const hours = value.getHours()
-            const minutes = value.getMinutes()
-            return day + '.' + month + '.' + year + ' ' + hours + ':' + minutes
+           
+            return day + '.' + month + '.' + year
         }
     },
     prettyUpdatedAt: {
@@ -177,9 +176,8 @@ const Order = sequelize.define('order', {
             const day = value.getDate()
             const month = value.getMonth() + 1
             const year = value.getFullYear()
-            const hours = value.getHours()
-            const minutes = value.getMinutes()
-            return day + '.' + month + '.' + year + ' ' + hours + ':' + minutes
+         
+            return day + '.' + month + '.' + year 
         }
     },
 })

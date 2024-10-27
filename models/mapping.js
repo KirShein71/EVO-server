@@ -279,7 +279,6 @@ BasketProduct.belongsTo(Material)
 Edging.hasMany(BasketProduct)
 BasketProduct.belongsTo(Edging)
 
-
 Saddle.hasMany(BasketProduct)
 BasketProduct.belongsTo(Saddle)
 
@@ -294,6 +293,7 @@ BasketProduct.belongsTo(Thirdrow)
 
 Home.hasMany(BasketProduct)
 BasketProduct.belongsTo(Home)
+
 
 Home.hasMany(HomeImage, {onDelete: 'CASCADE', hooks: true})
 HomeImage.belongsTo(Home)
@@ -374,8 +374,8 @@ OrderItem.belongsTo(BagSize)
 BagMaterial.hasMany(OrderItem, {as: 'items', onDeelete: 'CASCADE'})
 OrderItem.belongsTo(BagMaterial)
 
-// User.hasMany(Order)
-// Order.belongsTo(User)
+User.hasMany(Order)
+Order.belongsTo(User)
 
 export {
     Brand,

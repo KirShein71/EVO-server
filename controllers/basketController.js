@@ -24,7 +24,7 @@ class Basket {
         try {
             let basketId
             if (!req.signedCookies.basketId) {
-                let created = await BasketModel.create({ userId: req.user.id }) // связываем корзину с пользователем
+                let created = await BasketModel.create() // связываем корзину с пользователем
                 basketId = created.id   
             } 
             else {

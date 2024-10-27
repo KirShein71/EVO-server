@@ -8,7 +8,7 @@ class Order {
 
     async create(req, res, next) {
         try {
-            const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, deliverysum, items } = req.body;
+            const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, deliverysum, userId, items } = req.body;
             
             
             if (!name) throw new Error('Не указано имя покупателя');
@@ -21,7 +21,7 @@ class Order {
             // Очистить корзину перед созданием заказа
             await BasketModel.clear(parseInt(req.signedCookies.basketId));
             
-            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, deliverysum, items });
+            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, deliverysum, userId, items });
             
             res.json(order);
         } catch(e) {
@@ -55,14 +55,15 @@ class Order {
 
     async createAdmin(req, res, next) {
         try {
-            const { name, surname, phone, delivery, region, city, productId, materialId, edgingId, saddleId, steelId, trunkId, thirdrowId, quantity, quantity_trunk, bagId, homeId} = req.body;
-            const items = [{ productId, materialId, edgingId, saddleId, steelId, trunkId, thirdrowId, quantity, quantity_trunk, bagId, homeId}]
+            const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, deliverysum } = req.body;
+            const { productId, materialId, edgingId, saddleId, steelId, trunkId, thirdrowId, quantity, quantity_trunk} = req.body
+            const items = [{ productId, materialId, edgingId, saddleId, steelId, trunkId, thirdrowId, quantity, quantity_trunk}]
             if (!name) throw new Error('Не указано имя покупателя');
             if (!surname) throw new Error('Не указана фамалия покупателя');
             if (!phone) throw new Error('Не указан телефон покупателя');
     
             // Создаем заказ в таблице OrderModel
-            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, items });
+            const order = await OrderModel.create({ name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, tariffcode, location, deliverysum, items });
     
     
             res.json(order);
@@ -166,6 +167,18 @@ class Order {
     async getAll(req, res, next) {
         try {
             const orders = await OrderModel.getAll()
+            res.json(orders)
+        } catch(e) {
+            next(AppError.badRequest(e.message))
+        }
+    }
+
+    async getAllForUserAccount(req, res, next) {
+        try {
+            if (!req.params.userId) {
+                throw new Error('Не указан userId')
+            }
+            const orders = await OrderModel.getAllForUserAccount(req.params.userId)
             res.json(orders)
         } catch(e) {
             next(AppError.badRequest(e.message))

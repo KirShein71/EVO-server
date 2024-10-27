@@ -32,6 +32,7 @@ async getOne(name) {
             name: name,
         }
     })
+ 
     if (!brand) { 
         throw new Error('Товар не найден в БД')
     }

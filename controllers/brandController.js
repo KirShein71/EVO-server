@@ -27,6 +27,7 @@ class BrandController {
                 throw new Error('Не указано название бренда')
             }
             const brand = await BrandModel.getOne(req.params.name)
+           
             res.json(brand)
         } catch(e) {
             next(AppError.badRequest(e.message))

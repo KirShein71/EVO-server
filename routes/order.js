@@ -5,6 +5,7 @@ import OrderController from '../controllers/orderController.js'
 const router = new express.Router()
 
 router.get('/getall', OrderController.getAll)
+router.get('/getAllForUserAccount/:userId([0-9]+)', OrderController.getAllForUserAccount)
 router.post('/create', OrderController.create)
 router.post('/createOrderBag', OrderController.createOrderBag)
 router.post('/createOrderAutoRug', OrderController.createOrderAutoRug)

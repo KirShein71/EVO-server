@@ -6,11 +6,13 @@ import { Edging as EdgingMapping } from './mapping.js'
 import { Trunk as TrunkMapping} from './mapping.js'
 import { Thirdrow as ThirdrowMapping } from './mapping.js'
 import { Home as HomeMapping} from './mapping.js'
+import { HomeImage as HomeImageMapping } from './mapping.js'
 import { Saddle as SaddleMapping } from './mapping.js'
 import { Steel as SteelMapping } from './mapping.js'
 import { Bag as BagMapping} from './mapping.js'
 import { BagMaterial as BagMaterialMapping } from './mapping.js'
 import { BagSize as BagSizeMapping } from './mapping.js'
+import { BagImage as BagImageMapping } from './mapping.js'
 
 
 
@@ -63,6 +65,42 @@ class Order {
         return ordersWithTotal; // Возвращаем заказы с их суммами
     }
 
+    async getAllForUserAccount(userId) {
+        const order = await OrderMapping.findAll({
+            where: {
+                userId: userId 
+            }, 
+            include: [
+                {
+                    model: OrderItemMapping, include: 
+                    [
+                        { model: ProductMapping, attributes: ['name', 'new_price', 'image'] },
+                        {model: HomeMapping, attributes: ['name', 'new_price'], 
+                            include: [
+                                {model: HomeImageMapping, attributes: ['image', 'materialId']}
+                            ]
+                        },
+                        {model: MaterialMapping, attributes: ['name', 'image']},
+                        {model: EdgingMapping, attributes: ['name', 'image']},
+                        { model: TrunkMapping, attributes: ['new_price'], include: [{ model: ProductMapping, attributes: ['name'] }] },
+                        { model: ThirdrowMapping, attributes: ['new_price'] },
+                        {model: SaddleMapping, attributes: ['name', 'new_price', 'image']},
+                        {model: SteelMapping, attributes: ['name', 'new_price', 'image']},
+                        {model: BagMapping, attributes: ['name'],
+                            include: [
+                                {model: BagImageMapping, attributes: ['image', 'bagmaterialId', 'bagsizeId']}
+                            ]
+                        },
+                        {model: BagMaterialMapping, attributes: ['name']},
+                        {model: BagSizeMapping, attributes: ['size', 'price']} 
+                    ]
+                }
+            ]
+        })
+
+        return order
+    }
+
     async getOne(id) {
         const order = await OrderMapping.findByPk(id)
         if (!order) {
@@ -89,7 +127,7 @@ class Order {
             throw new Error('Data or items are missing');
         }
         const items = data.items;
-        const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, status = 'Новый', tariffcode, location, deliverysum } = data;
+        const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, status = 'Новый', tariffcode, location, deliverysum, userId } = data;
         const order = await OrderMapping.create({
             name,
             surname,
@@ -106,7 +144,8 @@ class Order {
             flat,
             tariffcode,
             location,
-            deliverysum
+            deliverysum,
+            userId
         });
     
         for (let item of items) {
@@ -155,7 +194,7 @@ class Order {
             throw new Error('Data or items are missing');
         }
         const items = data.items;
-        const { name, surname, phone, delivery, region, city, status = 'Новый' } = data;
+        const { name, surname, phone, delivery, region, city, codepvz, totalamount, citycode, street, home, flat, status = 'Новый', tariffcode, location, deliverysum } = data;
         const order = await OrderMapping.create({
             name,
             surname,
@@ -163,13 +202,21 @@ class Order {
             status,
             delivery,
             region,
-            city
+            city,
+            codepvz,
+            totalamount, 
+            citycode, 
+            street, 
+            home, 
+            flat,
+            tariffcode,
+            location,
+            deliverysum
         });
     
         for (let item of items) {
             await OrderItemMapping.create({
                 productId: item.productId, 
-                homeId: item.homeId,
                 orderId: order.id,
                 materialId: item.materialId,
                 edgingId: item.edgingId,
@@ -179,7 +226,7 @@ class Order {
                 steelId: item.steelId,
                 quantity: item.quantity,
                 quantity_trunk: item.quantity_trunk,
-         
+
             });
         }
         

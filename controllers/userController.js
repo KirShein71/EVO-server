@@ -17,6 +17,8 @@ class UserController {
         return res.json({token})
     }
 
+  
+
     async createAccount(req, res, next) {
         const {phone, role  = 'USER', password} = req.body
         try {
@@ -28,7 +30,8 @@ class UserController {
             }
             const hash = await bcrypt.hash(password, 10)
             const user = await UserModel.createAccount({phone, password: hash, role})
-            return res.json(user)
+            const token = makeJwt(user.id, user.phone, user.role)
+            return res.json({token})
         } catch(e) {
             next(AppError.badRequest(e.message))
         }
@@ -48,6 +51,8 @@ class UserController {
             next(AppError.badRequest(e.message))
         }
     }
+
+    
 }
 
 export default new UserController;

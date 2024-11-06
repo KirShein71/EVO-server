@@ -1,8 +1,15 @@
 import { Feedback as FeedbackMapping } from "./mapping.js";
+import { CarModel as CarModelMapping } from "./mapping.js";
+import { Brand as BrandMapping } from "./mapping.js";
 
 class Feedback {
     async getAll() {
-        const feedbacks = await FeedbackMapping.findAll()
+        const feedbacks = await FeedbackMapping.findAll({
+            include: [
+                {model: CarModelMapping, attributes: ['name']},
+                {model: BrandMapping, attributes:['name']}
+            ]
+        })
         return feedbacks
     }
 
@@ -11,13 +18,13 @@ class Feedback {
         if (!feedback) {
             throw new Error('Заказ не найден в БД')
         }
-        const { name, phone, note_admin} = feedback
-        return { name, phone, note_admin}
+        const { name, phone, note_admin, carmodelId, brandId} = feedback
+        return { name, phone, note_admin, carmodelId, brandId}
     }
 
     async createFeedback(data) {
-        const {name, phone, note_admin} = data
-        const feedback = await FeedbackMapping.create({ name, phone, note_admin})
+        const {name, phone, note_admin, carModelId, brandId} = data
+        const feedback = await FeedbackMapping.create({ name, phone, note_admin, carModelId, brandId})
         
         const created = await FeedbackMapping.findByPk(feedback.id) 
         return created

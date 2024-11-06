@@ -209,8 +209,8 @@ const User = sequelize.define('user', {
 const Feedback = sequelize.define('feedback', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     phone: { type: DataTypes.STRING, allowNull: false },
-    name: {type: DataTypes.STRING, allowNull: false},
-    note_admin: {type: DataTypes.STRING, allowNull: true}
+    name: {type: DataTypes.STRING},
+    note_admin: {type: DataTypes.STRING, allowNull: true},
 })
 
 
@@ -376,6 +376,12 @@ OrderItem.belongsTo(BagMaterial)
 
 User.hasMany(Order)
 Order.belongsTo(User)
+
+CarModel.hasMany(Feedback)
+Feedback.belongsTo(CarModel)
+
+Brand.hasMany(Feedback)
+Feedback.belongsTo(Brand)
 
 export {
     Brand,

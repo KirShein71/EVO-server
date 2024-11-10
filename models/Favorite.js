@@ -11,7 +11,7 @@ class Favorite {
                 basketId: basketId,
             },
             include: [
-                {model: ProductMapping, attributes: ['id', 'name', 'new_price', 'old_price', 'image']},
+                {model: ProductMapping, attributes: ['id', 'name', 'new_price', 'old_price', 'image', 'pattern_image']},
             ]
         });
         return favorite;

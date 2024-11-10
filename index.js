@@ -31,12 +31,23 @@ app.use('/api', router)
 // обработка ошибок
 app.use(errorMiddleware)
 
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://www.savaks.ru',
+    'https://savaks.ru',
+    'http://www.savaks.ru',
+    'http://savaks.ru'
+];
+
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin',  'http://localhost:3000', 'https://www.savaks.ru', 'https://savaks.ru', 'http://www.savaks.ru', 'http://savaks.ru' );
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
-  });
+});
 
   
 
